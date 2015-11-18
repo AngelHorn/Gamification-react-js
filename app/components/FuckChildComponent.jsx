@@ -7,7 +7,7 @@ export default class FuckChildComponent extends React.Component {
         return (
             <div>
                 <h1 onClick={()=>this.props.onFuckClick(this.props.fuckState)}>
-                    Hello world 我是儿子!!{this.props.fuckState}
+                    Hello world gaga!!{this.props.fuckState}
                 </h1>
             </div>
         )

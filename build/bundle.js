@@ -42,19 +42,11 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	const component = function () {
-	    var element = document.createElement('h1');
+	(function webpackMissingModule() { throw new Error("Cannot find module \"webpack/hot/dev-server\""); }());
+	(function webpackMissingModule() { throw new Error("Cannot find module \"/Users/pengpengboshi/Desktop/projects/Gamification-react-js/app/main.js\""); }());
 
-	    element.innerHTML = 'Hello world';
-
-	    return element;
-	};
-
-
-
-	document.body.appendChild(component());
 
 /***/ }
 /******/ ]);
