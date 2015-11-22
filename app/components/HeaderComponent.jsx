@@ -19,7 +19,7 @@ const HeaderComponent = React.createClass({
           <Menu
               onClick={this.handleClick}
               selectedKeys={[this.state.current]}
-              theme={this.state.theme}
+              theme="dark"
               mode="horizontal">
               <Menu.Item key="mail">
                   <Icon type="mail" />
