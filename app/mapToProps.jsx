@@ -1,4 +1,4 @@
-import {fuckClickAC} from './actions/actionsCreators';
+import {fuckClickAC} from './actions/actionsCreators.jsx';
 import { reduxReactRouter, routerStateReducer, ReduxRouter,pushState } from 'redux-router';
 
 export function mapStateToProps(state){

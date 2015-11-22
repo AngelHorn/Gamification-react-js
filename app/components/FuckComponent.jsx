@@ -8,10 +8,10 @@ export default class FuckComponent extends React.Component {
         <h1 onClick={() => this.props.onFuckClick(this.props.fuckState)}>
 
           Hello world!!{this.props.fuckState}
-
-          <Link to="/child">点我到儿子</Link>
+          <RaisedButton label="what the fuck" primary={true}/>
         </h1>
-        {this.props.children && React.cloneElement(this.props.children, {onFuckClick: this.props.onFuckClick, fuckState: this.props.fuckState})}
+        {this.props.children &&
+            React.cloneElement(this.props.children, {onFuckClick: this.props.onFuckClick, fuckState: this.props.fuckState})}
       </div>
     )
   }

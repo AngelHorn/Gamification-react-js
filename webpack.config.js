@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var buildPath = path.resolve(__dirname, 'build');
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var TransferWebpackPlugin = require('transfer-webpack-plugin');
@@ -43,6 +44,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     //Allows error warnings but does not stop compiling. Will remove when eslint is added
     new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin('[name].css'),
     //Moves files
     new TransferWebpackPlugin([
       {
@@ -65,8 +67,15 @@ module.exports = {
       loaders: ['react-hot', 'babel-loader?optional=runtime&stage=0'], // 加载模块 "babel" 是 "babel-loader" 的缩写
       exclude: [nodeModulesPath]
     }, {
-      test: /\.css$/, // Only .css files
-      loader: 'style!css' // Run both loaders
+      test: /\.less$/,
+      loader: ExtractTextPlugin.extract(
+        'css?sourceMap&-minimize!' + 'autoprefixer-loader!' + 'less?sourceMap'
+      )
+    }, {
+      test: /\.css$/,
+      loader: ExtractTextPlugin.extract(
+        'css?sourceMap&-minimize!' + 'autoprefixer-loader'
+      )
     }],
     noParse: [
         //pathToReact,
