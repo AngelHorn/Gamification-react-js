@@ -6,6 +6,8 @@ import {Link} from 'react-router';
 //引入connect需要的映射方法
 import {mapStateToProps, mapDispatchToProps} from './maptoProps.jsx';
 
+import {Row, Col} from "antd";
+
 //引入下级组件
 import HeaderComponent from './components/HeaderComponent.jsx';
 import LeftNavComponent from './components/LeftNavComponent.jsx';
@@ -15,14 +17,17 @@ class RootComponent extends React.Component {
   render() {
     return (
       <div>
-        <HeaderComponent/>
-            <div className="col-4">
-                <LeftNavComponent/>
-            </div>
-            <div className="col-20">
-                <DataGridComponent/>
-                
-            </div>
+          <HeaderComponent/>
+          <Row>
+              <Col span="4">
+                  <LeftNavComponent/>
+
+              </Col>
+              <Col span="20">
+                  <DataGridComponent/>
+              </Col>
+          </Row>
+            
       </div>
     )
   }

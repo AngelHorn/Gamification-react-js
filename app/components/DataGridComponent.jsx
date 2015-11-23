@@ -1,7 +1,5 @@
 import React, { PropTypes } from 'react'
 import { Table } from 'antd';
-import { Tree } from 'antd';
-const TreeNode = Tree.TreeNode;
 
 const columns = [{
   title: '姓名',
@@ -56,22 +54,9 @@ const DataGridComponent = React.createClass({
             <Table
                 rowSelection={rowSelection}
                 columns={columns}
-                dataSource={data} />
-            <Tree
-                defaultExpandAll={true}
-                checkable={true}
-                onCheck={alert("fuck")}>
-                <TreeNode title="parent 1">
-                    <TreeNode title="leaf" />
-                    <TreeNode title="parent 1-1">
-                        <TreeNode title="parent 2-1">
-                            <TreeNode title="leaf" />
-                            <TreeNode title="leaf" />
-                        </TreeNode>
-                        <TreeNode title="leaf" />
-                    </TreeNode>
-                </TreeNode>
-            </Tree>
+                dataSource={data}
+                pagination={false} />
+
             </div>
         )
     }

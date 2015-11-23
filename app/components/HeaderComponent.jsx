@@ -1,6 +1,9 @@
 import React, { PropTypes } from 'react'
 import { Menu, Icon, Switch } from 'antd';
 const SubMenu = Menu.SubMenu;
+import {Form, Input, Datepicker, Row, Col} from "antd";
+const FormItem = Form.Item;
+const InputGroup = Input.Group;
 
 const HeaderComponent = React.createClass({
     getInitialState() {
@@ -15,38 +18,65 @@ const HeaderComponent = React.createClass({
       });
     },
     render() {
-      return (
-          <Menu
-              onClick={this.handleClick}
-              selectedKeys={[this.state.current]}
-              theme="dark"
-              mode="horizontal">
-              <Menu.Item key="mail">
-                  <Icon type="mail" />
-                  导航一
-              </Menu.Item>
-              <Menu.Item key="app">
-                  <Icon type="appstore" />
-                  导航二
-              </Menu.Item>
-              <SubMenu title={
-                      <span>
-                          <Icon type="setting" />
-                          导航 - 子菜单
-                      </span>
-                  }>
-                  <Menu.Item key="setting:1">选项1</Menu.Item>
-                  <Menu.Item key="setting:2">选项2</Menu.Item>
-                  <Menu.Item key="setting:3">选项3</Menu.Item>
-                  <Menu.Item key="setting:4">选项4</Menu.Item>
-              </SubMenu>
-              <Menu.Item key="alipay">
-                  <a href="http://www.alipay.com/" target="_blank">
-                      导航四 - 链接
-                  </a>
-              </Menu.Item>
-          </Menu>
-      )
+        return (
+            <header>
+                <Row>
+                    <Col span="4" style={{textAlign:"center"}}>
+                        <a href="../..">
+                            <img
+                                width="60"
+                                src="https://t.alipayobjects.com/images/rmsweb/T1B9hfXcdvXXXXXXXX.svg"/>
+                        </a>
+                    </Col>
+                    <Col span="16">
+                        <Menu
+                            onClick={this.handleClick}
+                            selectedKeys={[this.state.current]}
+                            theme=""
+                            mode="horizontal">
+                            <Menu.Item key="mail">
+                                <Icon type="mail" />
+                                导航一
+                            </Menu.Item>
+
+                            <Menu.Item key="app">
+                                <Icon type="mail" />
+                                导航一
+                            </Menu.Item>
+                            <SubMenu title={
+                                    <span>
+                                        <Icon type="setting" />
+                                        导航 - 子菜单
+                                    </span>
+                                }>
+                                <Menu.Item key="setting:1">选项1</Menu.Item>
+                                <Menu.Item key="setting:2">选项2</Menu.Item>
+                                <Menu.Item key="setting:3">选项3</Menu.Item>
+                                <Menu.Item key="setting:4">选项4</Menu.Item>
+                            </SubMenu>
+                            <Menu.Item key="alipay">
+                                <a href="http://www.alipay.com/" target="_blank">
+                                    导航四 - 链接
+                                </a>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <Row type="flex">
+                                    <Col>
+                                        <Icon type="search" />
+                                    </Col>
+                                    <Col>
+                                        <Input placeholder="搜索..." />
+                                    </Col>
+                                </Row>
+                            </Menu.Item>
+                        </Menu>
+                    </Col>
+                    <Col span="4">
+                    </Col>
+                </Row>
+            </header>
+
+        )
     }
 })
 

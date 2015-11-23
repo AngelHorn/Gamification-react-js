@@ -12,7 +12,6 @@ import {DevTools, DebugPanel, LogMonitor} from 'redux-devtools/lib/react';
 import rootReducer from './rootReducer.jsx';
 
 import RootComponent from './RootComponent.jsx';
-
 //import request from 'superagent'; //ajax
 
 const store = compose(
