@@ -13,8 +13,6 @@ import rootReducer from './rootReducer.jsx';
 
 import RootComponent from './RootComponent.jsx';
 //引入下级组件
-import HeaderComponent from './components/HeaderComponent.jsx';
-import LeftNavComponent from './components/LeftNavComponent.jsx';
 import DataGridComponent from './components/DataGridComponent.jsx';
 //import request from 'superagent'; //ajax
 
@@ -31,10 +29,9 @@ class Root extends React.Component {
               <Provider store={store}>
                   <Router>
                       <Route path="/" component={RootComponent}>
-                          <IndexRoute components={{header: HeaderComponent, sidebar: LeftNavComponent}}/>
                           <Route
                               path="fuck"
-                              components={{header: HeaderComponent, sidebar: LeftNavComponent,main:DataGridComponent}}/>
+                              components={DataGridComponent}/>
                       </Route>
                   </Router>
               </Provider>

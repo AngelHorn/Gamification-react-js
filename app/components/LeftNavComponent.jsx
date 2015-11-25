@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Menu, Icon, Switch } from 'antd';
+import { Menu, Icon, Switch, Tag } from 'antd';
 const SubMenu = Menu.SubMenu;
 
 const LeftNavComponent = React.createClass({
@@ -10,9 +10,9 @@ const LeftNavComponent = React.createClass({
     },
     handleClick(e) {
         if(e.key % 2){
-            window.location.hash = 'fuck'
-        }else{
             window.location.hash = '/'
+        }else{
+            window.location.hash = 'fuck'
         }
         this.setState({
           current: e.key
@@ -26,10 +26,10 @@ const LeftNavComponent = React.createClass({
                 defaultOpenKeys={['sub1']}
                 selectedKeys={[this.state.current]}
                 mode="inline">
-                <Menu.Item key="1"><Icon type="inbox" />收集箱</Menu.Item>
-                <Menu.Item key="2"><Icon type="play-circle-o" />今日待办</Menu.Item>
-                <Menu.Item key="3"><Icon type="star-o" />下一步行动</Menu.Item>
-                <Menu.Item key="4"><Icon type="pause-circle-o" />等待中</Menu.Item>
+                <Menu.Item key="1"><Icon type="inbox" />收集箱<span style={{float:"right"}}>10</span></Menu.Item>
+                <Menu.Item key="2"><Icon type="play-circle-o" />今日待办<span style={{float:"right"}}>10</span></Menu.Item>
+                <Menu.Item key="3"><Icon type="star-o" />下一步行动<span style={{float:"right"}}>10</span></Menu.Item>
+                <Menu.Item key="4"><Icon type="pause-circle-o" />等待中<span style={{float:"right"}}>10</span></Menu.Item>
                 <Menu.Item key="5"><Icon type="calendar" />日程表</Menu.Item>
                 <Menu.Item disabled={true}/>
                 <Menu.Item key="6"><Icon type="check-circle-o" />已完成</Menu.Item>

@@ -6,20 +6,21 @@ import { Router, Route, Link } from 'react-router'
 import {mapStateToProps, mapDispatchToProps} from './maptoProps.jsx';
 
 import {Row, Col} from "antd";
-
+import HeaderComponent from './components/HeaderComponent.jsx';
+import LeftNavComponent from './components/LeftNavComponent.jsx';
 
 
 class RootComponent extends React.Component {
   render() {
     return (
       <div>
-          {this.props.header}
+          <HeaderComponent/>
           <Row>
               <Col span="4">
-                  {this.props.sidebar}
+                  <LeftNavComponent/>
               </Col>
               <Col span="20">
-                  {this.props.main}
+                  {this.props.children}
               </Col>
           </Row>
 
