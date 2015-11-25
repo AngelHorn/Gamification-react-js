@@ -1,38 +1,39 @@
 import React, { PropTypes } from 'react'
-import { Table } from 'antd';
+import { Table, Checkbox } from 'antd';
+
 
 const columns = [{
-  title: '姓名',
-  dataIndex: 'name',
-  render: function(text) {
-    return <a href="javascript:;">{text}</a>;
-  }
-}, {
-  title: '年龄',
-  dataIndex: 'age'
-}, {
-  title: '住址',
-  dataIndex: 'address'
+    colSpan: 0,
+    title:'选中',
+    dataIndex: 'key',
+    width: 30,
+    render: function(key){
+        return   <Checkbox key={key} defaultChecked={false} />
+    }
+},{
+    colSpan:0,
+    title: '姓名',
+    dataIndex: 'name',
+    render: function(text) {
+        return <a href="javascript:;">
+            {text}
+        </a>;
+    }
 }];
 const data = [{
   key: '1',
-  name: '胡彦斌',
-  age: 32,
-  address: '西湖区湖底公园1号'
+  name: '胡彦斌'
 }, {
   key: '2',
-  name: '胡彦祖',
-  age: 42,
-  address: '西湖区湖底公园1号'
+  name: '胡彦祖'
 }, {
   key: '3',
-  name: '李大嘴',
-  age: 32,
-  address: '西湖区湖底公园1号'
+  name: '李大嘴'
 }];
 
 // 通过 rowSelection 对象表明需要行选择
 const rowSelection = {
+  type: "radio",
   getCheckboxProps: function(record) {
     return {
       defaultChecked: record.name === '李大嘴', // 配置默认勾选的列
@@ -51,15 +52,18 @@ const DataGridComponent = React.createClass({
     render () {
         return (
             <div>
-            <Table
-                rowSelection={rowSelection}
-                columns={columns}
-                dataSource={data}
-                pagination={false} />
-
+                <Table
+                    columns={columns}
+                    dataSource={data}
+                    pagination={false}
+                     />
             </div>
         )
     }
 })
+
+
+
+
 
 export default DataGridComponent

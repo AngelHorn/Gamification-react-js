@@ -5,7 +5,7 @@ const SubMenu = Menu.SubMenu;
 const LeftNavComponent = React.createClass({
     getInitialState() {
         return {
-          current: 'today'
+          current: window.location.hash.replace('#/','').split("?")[0]
         }
     },
     handleClick(e) {
