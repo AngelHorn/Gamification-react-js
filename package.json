@@ -35,6 +35,7 @@
     "antd": "^0.10.1",
     "history": "^1.13.1",
     "material-ui": "^0.13.0",
+    "normalizr": "^1.4.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-router": "^1.0.0",
