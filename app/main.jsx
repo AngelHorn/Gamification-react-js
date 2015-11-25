@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {createStore, compose, combineReducers, applyMiddleware} from 'redux';
 import {Provider, connect, dispatch} from 'react-redux';
 import {ReduxRouter, routerStateReducer, reduxReactRouter} from 'redux-router';
-import { Router, Route, Link, IndexRoute } from 'react-router'
+import { Router, Route, Link, IndexRedirect } from 'react-router'
 
 import createHistory from 'history/lib/createBrowserHistory';
 import {devTools, persistState} from 'redux-devtools';
@@ -13,7 +13,8 @@ import rootReducer from './rootReducer.jsx';
 
 import RootComponent from './RootComponent.jsx';
 //引入下级组件
-import DataGridComponent from './components/DataGridComponent.jsx';
+import * as MainContainers from './containers/index.jsx';
+
 //import request from 'superagent'; //ajax
 
 const store = compose(
@@ -30,8 +31,30 @@ class Root extends React.Component {
                   <Router>
                       <Route path="/" component={RootComponent}>
                           <Route
-                              path="fuck"
-                              components={DataGridComponent}/>
+                              path="inbox"
+                              components={MainContainers.InboxContainer}/>
+                          <Route
+                              path="today"
+                              components={MainContainers.TodayContainer}/>
+                          <Route
+                              path="next"
+                              components={MainContainers.NextContainer}/>
+                          <Route
+                              path="waiting"
+                              components={MainContainers.WaitingContainer}/>
+                          <Route
+                              path="schedule"
+                              components={MainContainers.ScheduleContainer}/>
+                          <Route
+                              path="done"
+                              components={MainContainers.DoneContainer}/>
+                          <Route
+                              path="trash"
+                              components={MainContainers.TrashContainer}/>
+                          <Route
+                              path="tree"
+                              components={MainContainers.TreeContainer}/>
+                          <IndexRedirect to="today"/>
                       </Route>
                   </Router>
               </Provider>
