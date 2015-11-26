@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Menu, Icon, Switch } from 'antd';
-const SubMenu = Menu.SubMenu;
 import {Form, Input, Datepicker, Row, Col} from "antd";
+const SubMenu = Menu.SubMenu;
 const FormItem = Form.Item;
 const InputGroup = Input.Group;
 

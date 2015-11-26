@@ -2,26 +2,33 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {createStore, compose, combineReducers, applyMiddleware} from 'redux';
 import {Provider, connect, dispatch} from 'react-redux';
-import {ReduxRouter, routerStateReducer, reduxReactRouter} from 'redux-router';
 import { Router, Route, Link, IndexRedirect } from 'react-router'
 
 import createHistory from 'history/lib/createBrowserHistory';
 import {devTools, persistState} from 'redux-devtools';
 import {DevTools, DebugPanel, LogMonitor} from 'redux-devtools/lib/react';
+import thunkMiddleware from 'redux-thunk'
 
 import rootReducer from './rootReducer.jsx';
 
 import RootComponent from './RootComponent.jsx';
 //引入下级组件
-import * as MainContainers from './containers/index.jsx';
+import * as ContainersList from './containers/index.jsx';
 
 //import request from 'superagent'; //ajax
 
 const store = compose(
-    reduxReactRouter({createHistory}),
+    applyMiddleware(
+        thunkMiddleware
+    ),
     devTools(),
     persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
 )(createStore)(rootReducer);
+
+//console.log(store.getState());
+let unsubscribe = store.subscribe(() =>
+  console.log(store.getState())
+);
 
 class Root extends React.Component {
   render() {
@@ -32,28 +39,28 @@ class Root extends React.Component {
                       <Route path="/" component={RootComponent}>
                           <Route
                               path="inbox"
-                              components={MainContainers.InboxContainer}/>
+                              components={ContainersList.InboxContainer}/>
                           <Route
                               path="today"
-                              components={MainContainers.TodayContainer}/>
+                              components={ContainersList.TodayContainer}/>
                           <Route
                               path="next"
-                              components={MainContainers.NextContainer}/>
+                              components={ContainersList.NextContainer}/>
                           <Route
                               path="waiting"
-                              components={MainContainers.WaitingContainer}/>
+                              components={ContainersList.WaitingContainer}/>
                           <Route
                               path="schedule"
-                              components={MainContainers.ScheduleContainer}/>
+                              components={ContainersList.ScheduleContainer}/>
                           <Route
                               path="done"
-                              components={MainContainers.DoneContainer}/>
+                              components={ContainersList.DoneContainer}/>
                           <Route
                               path="trash"
-                              components={MainContainers.TrashContainer}/>
+                              components={ContainersList.TrashContainer}/>
                           <Route
                               path="tree"
-                              components={MainContainers.TreeContainer}/>
+                              components={ContainersList.TreeContainer}/>
                           <IndexRedirect to="today"/>
                       </Route>
                   </Router>

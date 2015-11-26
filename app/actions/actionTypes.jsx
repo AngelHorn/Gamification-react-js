@@ -1,1 +1,3 @@
-export const FUCK_CLICK  = "FUCK_CLICK";
+export default {
+    ADD_QUEST : "ADD_QUEST"
+};

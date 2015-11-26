@@ -1,13 +1,11 @@
 import React, { PropTypes } from 'react'
 import { Table, Checkbox } from 'antd';
 import { Row, Col, Input } from 'antd';
-import request from 'superagent';
-import { normalize, Schema, arrayOf } from 'normalizr';
 
 const columns = [{
     colSpan: 0,
     title:'选中',
-    dataIndex: 'key',
+    dataIndex: 'checkState',
     width: 30,
     render: function(key){
         return   <Checkbox key={key} defaultChecked={false} />
@@ -25,18 +23,8 @@ const columns = [{
 
 const DataGridComponent = React.createClass({
     getInitialState() {
-        this.handleAsyncRequest();
+        this.props.onFlashData();
         return {};
-        // let data = [];
-        // let returnData = request
-        // .get('/jsons/quests.json')
-        // .end(function(err, res){
-        //     let fuck = res.body.data;
-        //     // let shit = normalize(fuck, {data: arrayOf(new Schema('data'))})
-        //     data = normalize(fuck, arrayOf(new Schema('data')))
-        //     console.log(data);
-        //     return {data};
-        // });
     },
     render () {
         return (
@@ -56,7 +44,8 @@ const DataGridComponent = React.createClass({
                     <Col span="23">
                         <Table
                             columns={columns}
-                            dataSource={[]}
+                            dataSource={this.props.quests}
+                            rowKey={(recode, index) => recode.id}
                             pagination={false}
                             />
                     </Col>
@@ -66,9 +55,5 @@ const DataGridComponent = React.createClass({
         )
     }
 })
-
-
-
-
 
 export default DataGridComponent
