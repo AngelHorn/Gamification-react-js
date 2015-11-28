@@ -23,8 +23,13 @@ const columns = [{
 
 const DataGridComponent = React.createClass({
     getInitialState() {
-        this.props.onFlashData();
-        return {};
+        let height = document.body.offsetHeight
+        let headerHeight = height * 0.2 +"px";
+        let dataGridHeight = parseInt(height * 0.7) +"px";
+        return {
+            headerHeight,
+            dataGridHeight
+        }
     },
     render () {
         return (
@@ -43,6 +48,7 @@ const DataGridComponent = React.createClass({
                 <Row type="flex" justify="center">
                     <Col span="23">
                         <Table
+                            style={{overflowY:"auto",height:this.state.dataGridHeight}}
                             columns={columns}
                             dataSource={this.props.quests}
                             rowKey={(recode, index) => recode.id}

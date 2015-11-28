@@ -21,7 +21,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onFlashData: () => dispatch(actions.fetchPosts())
+    // onFlashData: () => dispatch(actions.fetchPosts())
   }
 }
 

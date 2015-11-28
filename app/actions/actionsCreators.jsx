@@ -24,12 +24,12 @@ export function fetchPosts() {
   return dispatch => {
     //dispatch(requestPosts())
     return request
-    .get('/jsons/quests.json')
+    .get('http://gamification.0x00000000.me/quests/tree')
     .end(function(err, res){
         // let shit = normalize(fuck, {data: arrayOf(new Schema('data'))})
         // let data = normalize(fuck, arrayOf(new Schema('data')))
         let data = res.body.data;
-        // console.log(res.body.data);
+        // console.log(res);
         dispatch(receivePosts(data))
     });
   }

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import {connect} from 'react-redux';
 import { Menu, Icon, Switch, Tag } from 'antd';
 const SubMenu = Menu.SubMenu;
 
@@ -23,11 +24,21 @@ const LeftNavComponent = React.createClass({
                 defaultOpenKeys={[]}
                 selectedKeys={[this.state.current]}
                 mode="inline">
-                <Menu.Item key="inbox"><Icon type="inbox" />收集箱<span style={{float:"right"}}>10</span></Menu.Item>
-                <Menu.Item key="today"><Icon type="play-circle-o" />今日待办<span style={{float:"right"}}>10</span></Menu.Item>
-                <Menu.Item key="next"><Icon type="star-o" />下一步行动<span style={{float:"right"}}>10</span></Menu.Item>
-                <Menu.Item key="waiting"><Icon type="pause-circle-o" />等待中<span style={{float:"right"}}>10</span></Menu.Item>
-                <Menu.Item key="schedule"><Icon type="calendar" />日程表</Menu.Item>
+                <Menu.Item key="inbox">
+                    <Icon type="inbox" />收集箱
+                    <LeftNavComponentLengthSpan length={this.props.quests.length}/>
+                </Menu.Item>
+                <Menu.Item key="today">
+                    <Icon type="play-circle-o" />今日待办
+                        <LeftNavComponentLengthSpan length={this.props.quests.length}/></Menu.Item>
+                <Menu.Item key="next">
+                    <Icon type="star-o" />下一步行动
+                        <LeftNavComponentLengthSpan length={this.props.quests.length}/></Menu.Item>
+                <Menu.Item key="waiting">
+                    <Icon type="pause-circle-o" />等待中
+                        <LeftNavComponentLengthSpan length={this.props.quests.length}/></Menu.Item>
+                <Menu.Item key="schedule">
+                    <Icon type="calendar" />日程表</Menu.Item>
                 <Menu.Item disabled={true}/>
                 <Menu.Item key="done"><Icon type="check-circle-o" />已完成</Menu.Item>
                 <Menu.Item key="trash"><Icon type="delete" />回收箱</Menu.Item>
@@ -45,4 +56,25 @@ const LeftNavComponent = React.createClass({
     }
 })
 
-export default LeftNavComponent
+const LeftNavComponentLengthSpan = React.createClass({
+    render () {
+        return (
+            <span style={{float:"right"}}>{this.props.length}</span>
+        )
+    }
+})
+
+
+function mapStateToProps(state) {
+  return {
+      quests: state.quests
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    //onFlashData: () => dispatch(actions.fetchPosts())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LeftNavComponent)
