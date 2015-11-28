@@ -26,17 +26,17 @@ const LeftNavComponent = React.createClass({
                 mode="inline">
                 <Menu.Item key="inbox">
                     <Icon type="inbox" />收集箱
-                    <LeftNavComponentLengthSpan length={this.props.quests.length}/>
+                    <LeftNavComponentLengthSpan navKey="0" quests={this.props.quests}/>
                 </Menu.Item>
                 <Menu.Item key="today">
                     <Icon type="play-circle-o" />今日待办
-                        <LeftNavComponentLengthSpan length={this.props.quests.length}/></Menu.Item>
+                        <LeftNavComponentLengthSpan navKey="1" quests={this.props.quests}/></Menu.Item>
                 <Menu.Item key="next">
                     <Icon type="star-o" />下一步行动
-                        <LeftNavComponentLengthSpan length={this.props.quests.length}/></Menu.Item>
+                        <LeftNavComponentLengthSpan navKey="2" quests={this.props.quests}/></Menu.Item>
                 <Menu.Item key="waiting">
                     <Icon type="pause-circle-o" />等待中
-                        <LeftNavComponentLengthSpan length={this.props.quests.length}/></Menu.Item>
+                        <LeftNavComponentLengthSpan navKey="3" quests={this.props.quests}/></Menu.Item>
                 <Menu.Item key="schedule">
                     <Icon type="calendar" />日程表</Menu.Item>
                 <Menu.Item disabled={true}/>
@@ -57,9 +57,17 @@ const LeftNavComponent = React.createClass({
 })
 
 const LeftNavComponentLengthSpan = React.createClass({
+    handleLength (key) {
+        let navCount = this.props.quests.filter((quest)=>{
+            if(quest.type === parseInt(key)){
+                return quest
+            }
+        });
+        return navCount.length;
+    },
     render () {
         return (
-            <span style={{float:"right"}}>{this.props.length}</span>
+            <span style={{float:"right"}}>{this.handleLength(this.props.navKey)}</span>
         )
     }
 })
