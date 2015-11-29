@@ -32,6 +32,7 @@ module.exports = {
     filename: 'bundle.js',
   },
   devServer: {
+    historyApiFallback: true,
     contentBase: buildPath, //Relative directory for base of server
     devtool: 'eval',
     hot: true, //Live-reload

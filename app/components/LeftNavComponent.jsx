@@ -59,7 +59,7 @@ const LeftNavComponent = React.createClass({
 const LeftNavComponentLengthSpan = React.createClass({
     handleLength (key) {
         let navCount = this.props.quests.filter((quest)=>{
-            if(quest.type === parseInt(key)){
+            if(quest.type === parseInt(key) && quest.state === 0){
                 return quest
             }
         });

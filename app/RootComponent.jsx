@@ -10,7 +10,7 @@ import LeftNavComponent from './components/LeftNavComponent.jsx';
 
 const RootComponent = React.createClass({
     getInitialState() {
-        this.props.onFlashData();
+        this.props.onFlashQuests();
         return {};
     },
     render () {
@@ -36,7 +36,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onFlashData: () => dispatch(actions.fetchPosts())
+    onFlashQuests: () => dispatch(actions.fetchQuests())
   }
 }
 

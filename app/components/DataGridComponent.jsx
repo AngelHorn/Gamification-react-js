@@ -3,14 +3,6 @@ import { Table, Checkbox } from 'antd';
 import { Row, Col, Input } from 'antd';
 
 const columns = [{
-    colSpan: 0,
-    title:'选中',
-    dataIndex: 'checkState',
-    width: 30,
-    render: function(key){
-        return   <Checkbox key={key} defaultChecked={false} />
-    }
-},{
     colSpan:0,
     title: '任务文本',
     dataIndex: 'text',
@@ -23,6 +15,9 @@ const columns = [{
 
 const DataGridComponent = React.createClass({
     getInitialState() {
+
+        columns[0].onCompleteQuest = this.props.onCompleteQuest;
+        //head高度与dataGrid的高度定义
         let height = document.body.offsetHeight
         let headerHeight = height * 0.2 +"px";
         let dataGridHeight = parseInt(height * 0.7) +"px";
@@ -48,7 +43,12 @@ const DataGridComponent = React.createClass({
                 <Row type="flex" justify="center">
                     <Col span="23">
                         <Table
-                            style={{overflowY:"auto",height:this.state.dataGridHeight}}
+                            style={{overflowY:"auto",height:this.state.dataGridHeight,}}
+                            rowSelection={{onSelect:(record, selected, selectedRows) => {
+                                if(selected){
+                                    this.props.onCompleteQuest(record.id);
+                                }
+                            }}}
                             columns={columns}
                             dataSource={this.props.quests}
                             rowKey={(recode, index) => recode.id}
@@ -56,7 +56,6 @@ const DataGridComponent = React.createClass({
                             />
                     </Col>
                 </Row>
-
             </div>
         )
     }

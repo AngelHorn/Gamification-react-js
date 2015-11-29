@@ -7,20 +7,24 @@ export function addQuest(text = "") {
   return {type: actionTypes.ADD_QUEST, text}
 }
 
-function requestPosts() {
+export function completeQuest(id){
+    return {type: actionTypes.COMPLETE_QUEST,id}
+}
+
+function requestQuests() {
   return {
-    type: 'REQUEST_POSTS'
+    type: actionTypes.REQUEST_QUESTS
   }
 }
 
-function receivePosts(data) {
+function receiveQuests(quests) {
   return {
-    type: 'RECEIVE_POSTS',
-    data: data
+    type: actionTypes.RECEIVE_QUESTS,
+    quests: quests
   }
 }
 
-export function fetchPosts() {
+export function fetchQuests() {
   return dispatch => {
     //dispatch(requestPosts())
     return request
@@ -28,9 +32,9 @@ export function fetchPosts() {
     .end(function(err, res){
         // let shit = normalize(fuck, {data: arrayOf(new Schema('data'))})
         // let data = normalize(fuck, arrayOf(new Schema('data')))
-        let data = res.body.data;
+        let quests = res.body.data;
         // console.log(res);
-        dispatch(receivePosts(data))
+        dispatch(receiveQuests(quests))
     });
   }
 }
