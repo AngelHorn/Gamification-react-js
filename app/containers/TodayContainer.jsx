@@ -14,7 +14,7 @@ const TodayContainer = React.createClass({
 })
 
 function mapStateToProps(state) {
-    let quests = state.quests.filter((quest)=>quest.type === 1);
+    let quests = state.quests.filter((quest) => quest.type === 1 && quest.state === 0);
   return {
       quests
   }
@@ -22,7 +22,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // onFlashData: () => dispatch(actions.fetchPosts())
+    onCompleteQuest: (id) => dispatch(actions.completeQuest(id))
   }
 }
 

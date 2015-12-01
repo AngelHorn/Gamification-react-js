@@ -16,7 +16,6 @@ const columns = [{
 const DataGridComponent = React.createClass({
     getInitialState() {
 
-        columns[0].onCompleteQuest = this.props.onCompleteQuest;
         //head高度与dataGrid的高度定义
         let height = document.body.offsetHeight
         let headerHeight = height * 0.2 +"px";
@@ -42,7 +41,7 @@ const DataGridComponent = React.createClass({
                 </Row>
                 <Row type="flex" justify="center">
                     <Col span="23">
-                        <Table
+                        <Table className="dataGrid"
                             style={{overflowY:"auto",height:this.state.dataGridHeight,}}
                             rowSelection={{onSelect:(record, selected, selectedRows) => {
                                 if(selected){

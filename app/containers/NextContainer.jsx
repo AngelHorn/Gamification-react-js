@@ -14,7 +14,7 @@ const NextContainer = React.createClass({
 })
 
 function mapStateToProps(state) {
-    let quests = state.quests.filter((quest)=>quest.type === 2);
+    let quests = state.quests.filter((quest) => quest.type === 2 && quest.state === 0);
   return {
       quests
   }
@@ -22,7 +22,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // onFlashData: () => dispatch(actions.fetchPosts())
+    onCompleteQuest: (id) => dispatch(actions.completeQuest(id))
   }
 }
 
