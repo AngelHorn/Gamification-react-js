@@ -3,8 +3,11 @@ import { normalize, Schema, arrayOf } from 'normalizr';
 
 import * as actionTypes from './actionTypes.jsx';
 
-export function addQuest(text = "") {
-  return {type: actionTypes.ADD_QUEST, text}
+export function addQuest(newQuest) {
+  return {
+      type: actionTypes.ADD_QUEST,
+      newQuest
+  }
 }
 
 export function completeQuest(id){
@@ -35,6 +38,19 @@ export function fetchQuests() {
         let quests = res.body.data;
         // console.log(res);
         dispatch(receiveQuests(quests))
+    });
+  }
+}
+
+export function fetchAddQuest(text = "",type = 0) {
+  return (dispatch) => {
+    return request
+    .post('http://gamification.0x00000000.me/quests')
+    .type('form')
+    .send({ text, type })
+    .end(function(err, res){
+        let newQuest = res.body.data;
+        dispatch(addQuest(newQuest))
     });
   }
 }

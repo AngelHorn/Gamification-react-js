@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import ReactDOM from 'react-dom';
 import { Table, Checkbox } from 'antd';
 import { Row, Col, Input } from 'antd';
 
@@ -14,8 +15,7 @@ const columns = [{
 }];
 
 const DataGridComponent = React.createClass({
-    getInitialState() {
-
+    getInitialState () {
         //head高度与dataGrid的高度定义
         let height = document.body.offsetHeight
         let headerHeight = height * 0.2 +"px";
@@ -25,12 +25,27 @@ const DataGridComponent = React.createClass({
             dataGridHeight
         }
     },
+    onAddQuest (e) {
+        let text = this.refs.addQuest.refs.input.value.trim();
+        if(text.length){
+            this.props.onFetchAddQuest(text, 0)
+        }else{}
+        this.refs.addQuest.refs.input.value = ''
+    },
+    handleKeyDown (e) {
+        if(e.keyCode === 13){
+            this.onAddQuest()
+        } else {
+
+        }
+    },
     render () {
         return (
             <div>
                 <Row type="flex" justify="center">
                     <Col span="23">
-                        <Input size="large" placeholder="添加任务..." />
+                        <Input ref="addQuest" size="large" placeholder="添加任务..."
+                            onKeyDown={this.handleKeyDown} />
                     </Col>
                 </Row>
                 <Row type="flex" justify="center">

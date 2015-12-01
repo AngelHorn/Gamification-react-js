@@ -19,7 +19,7 @@ const LeftNavComponent = React.createClass({
     render () {
         return (
             <Menu
-                onClick={this.handleClick}
+                onSelect={this.handleClick}
                 style={{width:"auto"}}
                 defaultOpenKeys={[]}
                 selectedKeys={[this.state.current]}
