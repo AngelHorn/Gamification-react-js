@@ -1,13 +1,8 @@
 export default {
-
-
-
-
-
-
+    //current
     PUT_CURRENT_NAV_TYPE: "PUT_CURRENT_NAV_TYPE",
 
-
+    //quests
     REQUEST_QUESTS: "REQUEST_QUESTS",
     RECEIVE_QUESTS: "RECEIVE_QUESTS",
     COMPLETE_QUEST: "COMPLETE_QUEST",

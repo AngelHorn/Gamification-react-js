@@ -16,8 +16,17 @@ export function addQuest(newQuest) {
   }
 }
 
-export function completeQuest(id){
-    return {type: actionTypes.COMPLETE_QUEST,id}
+export function completeQuest(id) {
+  return (dispatch) => {
+    return request
+    .put('http://gamification.0x00000000.me/quests/'+id)
+    .type('form')
+    .send({ state: 1})
+    .end(function(err, res){
+        let newQuest = res.body.data;
+        dispatch({type: actionTypes.COMPLETE_QUEST,id})
+    });
+  }
 }
 
 function requestQuests() {
