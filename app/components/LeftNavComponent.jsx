@@ -1,42 +1,59 @@
 import React, { PropTypes } from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router'
 import { Menu, Icon, Switch, Tag } from 'antd';
 const SubMenu = Menu.SubMenu;
 
 const LeftNavComponent = React.createClass({
-    getInitialState() {
-        return {
-          current: window.location.hash.replace('#/','').split("?")[0]
-        }
-    },
     handleClick(e) {
         //router
-        window.location.hash = e.key;
-        this.setState({
-          current: e.key
-        });
+        // console.log('handleClick');
+        // window.location.href = '/#/'+e.key;
+        // this.setState({
+        //   current: e.key
+        // });
+    },
+    handleMapNavType(navType){
+        let hash;
+        switch (this.props.current.navType) {
+            case 0:
+            hash = "inbox"
+            break;
+            case 2:
+            hash = "next"
+            break;
+            case 3:
+            hash = "waiting"
+            break;
+            case 1:
+            default:
+            hash = "today"
+        }
+        return hash;
     },
     render () {
         return (
             <Menu
-                onSelect={this.handleClick}
                 style={{width:"auto"}}
                 defaultOpenKeys={[]}
-                selectedKeys={[this.state.current]}
+                selectedKeys={[this.handleMapNavType()]}
                 mode="inline">
                 <Menu.Item key="inbox">
-                    <Icon type="inbox" />收集箱
-                    <LeftNavComponentLengthSpan navKey="0" quests={this.props.quests}/>
+                    <Link to="/inbox"><p><Icon type="inbox" />收集箱
+                    <LeftNavComponentLengthSpan navKey="0" quests={this.props.quests}/></p></Link>
                 </Menu.Item>
                 <Menu.Item key="today">
-                    <Icon type="play-circle-o" />今日待办
-                        <LeftNavComponentLengthSpan navKey="1" quests={this.props.quests}/></Menu.Item>
+                    <Link to="/today"><p><Icon type="play-circle-o" />今日待办
+                        <LeftNavComponentLengthSpan navKey="1" quests={this.props.quests}/></p></Link>
+                </Menu.Item>
                 <Menu.Item key="next">
-                    <Icon type="star-o" />下一步行动
-                        <LeftNavComponentLengthSpan navKey="2" quests={this.props.quests}/></Menu.Item>
+                    <Link to="/next"><p><Icon type="star-o" />下一步行动
+                        <LeftNavComponentLengthSpan navKey="2" quests={this.props.quests}/></p></Link>
+                </Menu.Item>
                 <Menu.Item key="waiting">
-                    <Icon type="pause-circle-o" />等待中
-                        <LeftNavComponentLengthSpan navKey="3" quests={this.props.quests}/></Menu.Item>
+                    <Link to="/waiting"><p><Icon type="pause-circle-o" />等待中
+                        <LeftNavComponentLengthSpan navKey="3" quests={this.props.quests}/></p></Link>
+                </Menu.Item>
                 <Menu.Item key="schedule">
                     <Icon type="calendar" />日程表</Menu.Item>
                 <Menu.Item disabled={true}/>
@@ -75,7 +92,8 @@ const LeftNavComponentLengthSpan = React.createClass({
 
 function mapStateToProps(state) {
   return {
-      quests: state.quests
+      quests: state.quests,
+      current: state.current
   }
 }
 

@@ -22,6 +22,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    onPutCurrentNavType: () => dispatch(actions.putCurrentNavType()),
     onCompleteQuest: (id) => dispatch(actions.completeQuest(id))
   }
 }

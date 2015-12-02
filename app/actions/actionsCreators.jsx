@@ -3,6 +3,12 @@ import { normalize, Schema, arrayOf } from 'normalizr';
 
 import * as actionTypes from './actionTypes.jsx';
 
+export function putCurrentNavType(){
+    return {
+        type: actionTypes.PUT_CURRENT_NAV_TYPE
+    }
+}
+
 export function addQuest(newQuest) {
   return {
       type: actionTypes.ADD_QUEST,
@@ -42,7 +48,7 @@ export function fetchQuests() {
   }
 }
 
-export function fetchAddQuest(text = "",type = 0) {
+export function fetchAddQuest(text, type) {
   return (dispatch) => {
     return request
     .post('http://gamification.0x00000000.me/quests')

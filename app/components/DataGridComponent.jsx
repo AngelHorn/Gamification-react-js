@@ -16,6 +16,7 @@ const columns = [{
 
 const DataGridComponent = React.createClass({
     getInitialState () {
+
         //head高度与dataGrid的高度定义
         let height = document.body.offsetHeight
         let headerHeight = height * 0.2 +"px";
@@ -25,19 +26,14 @@ const DataGridComponent = React.createClass({
             dataGridHeight
         }
     },
-    onAddQuest (e) {
-        let text = this.refs.addQuest.refs.input.value.trim();
-        if(text.length){
-            this.props.onFetchAddQuest(text, 0)
-        }else{}
-        this.refs.addQuest.refs.input.value = ''
-    },
     handleKeyDown (e) {
         if(e.keyCode === 13){
-            this.onAddQuest()
-        } else {
-
-        }
+            let text = this.refs.addQuest.refs.input.value.trim();
+            if(text.length){
+                this.props.onFetchAddQuest(text, 0)
+            }else{}
+            this.refs.addQuest.refs.input.value = ''
+        } else {}
     },
     render () {
         return (

@@ -11,6 +11,7 @@ import LeftNavComponent from './components/LeftNavComponent.jsx';
 const RootComponent = React.createClass({
     getInitialState() {
         this.props.onFlashQuests();
+        window.onhashchange = () => this.props.onPutCurrentNavType();
         return {};
     },
     render () {
@@ -36,6 +37,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+      onPutCurrentNavType: () => dispatch(actions.putCurrentNavType()),
     onFlashQuests: () => dispatch(actions.fetchQuests())
   }
 }

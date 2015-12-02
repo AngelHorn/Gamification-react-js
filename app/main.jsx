@@ -4,7 +4,7 @@ import {createStore, compose, combineReducers, applyMiddleware} from 'redux';
 import {Provider, connect, dispatch} from 'react-redux';
 import { Router, Route, Link, IndexRedirect } from 'react-router'
 
-import createHistory from 'history/lib/createBrowserHistory';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 import {devTools, persistState} from 'redux-devtools';
 import {DevTools, DebugPanel, LogMonitor} from 'redux-devtools/lib/react';
 import thunkMiddleware from 'redux-thunk'
