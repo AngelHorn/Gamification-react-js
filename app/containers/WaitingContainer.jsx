@@ -16,13 +16,14 @@ const WaitingContainer = React.createClass({
 function mapStateToProps(state) {
     let quests = state.quests.filter((quest) => quest.type === 3 && quest.state === 0);
   return {
-      quests
+      quests,
+      current: state.current
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    onPutCurrentNavType: () => dispatch(actions.putCurrentNavType()),
+    onFetchAddQuest: (text,type) => dispatch(actions.fetchAddQuest(text,type)),
     onCompleteQuest: (id) => dispatch(actions.completeQuest(id))
   }
 }

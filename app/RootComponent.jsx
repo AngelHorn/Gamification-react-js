@@ -37,7 +37,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-      onPutCurrentNavType: () => dispatch(actions.putCurrentNavType()),
+    onPutCurrentNavType: () => dispatch(actions.putCurrentNavType()),
     onFlashQuests: () => dispatch(actions.fetchQuests())
   }
 }

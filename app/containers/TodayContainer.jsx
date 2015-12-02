@@ -16,13 +16,14 @@ const TodayContainer = React.createClass({
 function mapStateToProps(state) {
     let quests = state.quests.filter((quest) => quest.type === 1 && quest.state === 0);
   return {
-      quests
+      quests,
+      current: state.current
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    onPutCurrentNavType: () => dispatch(actions.putCurrentNavType()),
+    onFetchAddQuest: (text,type) => dispatch(actions.fetchAddQuest(text,type)),
     onCompleteQuest: (id) => dispatch(actions.completeQuest(id))
   }
 }

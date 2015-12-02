@@ -30,7 +30,7 @@ const DataGridComponent = React.createClass({
         if(e.keyCode === 13){
             let text = this.refs.addQuest.refs.input.value.trim();
             if(text.length){
-                this.props.onFetchAddQuest(text, 0)
+                this.props.onFetchAddQuest(text, this.props.current.navType)
             }else{}
             this.refs.addQuest.refs.input.value = ''
         } else {}

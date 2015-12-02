@@ -16,7 +16,8 @@ const InboxContainer = React.createClass({
 function mapStateToProps(state) {
     let quests = state.quests.filter((quest) => quest.type === 0 && quest.state === 0);
   return {
-      quests
+      quests,
+      current: state.current
   }
 }
 
