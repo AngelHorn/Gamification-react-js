@@ -25,6 +25,9 @@ const LeftNavComponent = React.createClass({
             case 3:
             hash = "waiting"
             break;
+            case 5:
+            hash = "done"
+            break
             case 1:
             default:
             hash = "today"
@@ -57,7 +60,10 @@ const LeftNavComponent = React.createClass({
                 <Menu.Item key="schedule">
                     <Icon type="calendar" />日程表</Menu.Item>
                 <Menu.Item disabled={true}/>
-                <Menu.Item key="done"><Icon type="check-circle-o" />已完成</Menu.Item>
+                <Menu.Item key="done">
+                    <Link to="/done"><p><Icon type="check-circle-o" />已完成
+                        <LeftNavComponentLengthSpan navKey="5" quests={this.props.quests}/></p></Link>
+                </Menu.Item>
                 <Menu.Item key="trash"><Icon type="delete" />回收箱</Menu.Item>
                     <Menu.Item disabled={true}/>
 
@@ -75,11 +81,22 @@ const LeftNavComponent = React.createClass({
 
 const LeftNavComponentLengthSpan = React.createClass({
     handleLength (key) {
-        let navCount = this.props.quests.filter((quest)=>{
-            if(quest.type === parseInt(key) && quest.state === 0){
-                return quest
-            }
-        });
+        let navCount;
+        switch (parseInt(key)) {
+            case 5:
+                navCount = this.props.quests.filter((quest) => {
+                    if(quest.state === 1){
+                        return quest
+                    }
+                });
+                break;
+            default:
+                navCount = this.props.quests.filter((quest) => {
+                    if(quest.type === parseInt(key) && quest.state === 0){
+                        return quest
+                    }
+                });
+        }
         return navCount.length;
     },
     render () {

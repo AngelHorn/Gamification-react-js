@@ -12,6 +12,9 @@ switch (navType) {
     case "waiting":
         newState = 3
         break;
+    case "done":
+        newState = 5
+        break
     case "today":
     default:
         newState = 1
@@ -35,6 +38,9 @@ function current(state = defaultState, action) {
               case "waiting":
                   newState = 3
                   break;
+              case "done":
+                  newState = 5
+                  break
               case "today":
               default:
                   newState = 1

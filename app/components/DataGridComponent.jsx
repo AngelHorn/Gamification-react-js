@@ -16,7 +16,7 @@ const columns = [{
 
 const DataGridComponent = React.createClass({
     getInitialState () {
-
+        //数据驱动！！
         //head高度与dataGrid的高度定义
         let height = document.body.offsetHeight
         let headerHeight = height * 0.2 +"px";
@@ -54,11 +54,20 @@ const DataGridComponent = React.createClass({
                     <Col span="23">
                         <Table className="dataGrid"
                             style={{overflowY:"auto",height:this.state.dataGridHeight,}}
-                            rowSelection={{onSelect:(record, selected, selectedRows) => {
+                            rowSelection={{
+                                onSelect:(record, selected, selectedRows) => {
                                 if(selected){
                                     this.props.onCompleteQuest(record.id);
+                                } else {
+                                    this.props.onCancelCompleteQuest(record.id);
                                 }
-                            }}}
+                            },
+                                getCheckboxProps: (record) => {
+                                  return {
+                                    defaultChecked: record.state === 1, // 配置默认勾选的列
+                                  }
+                            }
+                        }}
                             columns={columns}
                             dataSource={this.props.quests}
                             rowKey={(recode, index) => recode.id}
