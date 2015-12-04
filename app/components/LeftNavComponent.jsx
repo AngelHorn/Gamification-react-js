@@ -27,7 +27,10 @@ const LeftNavComponent = React.createClass({
             break;
             case 5:
             hash = "done"
-            break
+            break;
+            case 6:
+            hash = "trash"
+            break;
             case 1:
             default:
             hash = "today"
@@ -64,7 +67,10 @@ const LeftNavComponent = React.createClass({
                     <Link to="/done"><p><Icon type="check-circle-o" />已完成
                         <LeftNavComponentLengthSpan navKey="5" quests={this.props.quests}/></p></Link>
                 </Menu.Item>
-                <Menu.Item key="trash"><Icon type="delete" />回收箱</Menu.Item>
+                <Menu.Item key="trash">
+                    <Link to="/trash"><p><Icon type="delete" />回收箱
+                        <LeftNavComponentLengthSpan navKey="6" quests={this.props.quests}/></p></Link>
+                </Menu.Item>
                     <Menu.Item disabled={true}/>
 
                 <Menu.Item key="tree"><Icon type="bars" />任务树</Menu.Item>

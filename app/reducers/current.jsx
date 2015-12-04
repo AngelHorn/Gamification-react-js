@@ -15,6 +15,9 @@ switch (navType) {
     case "done":
         newState = 5
         break
+    case "trash":
+        newState = 6
+        break;
     case "today":
     default:
         newState = 1
@@ -41,6 +44,9 @@ function current(state = defaultState, action) {
               case "done":
                   newState = 5
                   break
+              case "trash":
+                  newState = 6;
+                  break;
               case "today":
               default:
                   newState = 1
