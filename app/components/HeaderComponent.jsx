@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Menu, Icon, Switch } from 'antd';
-import {Form, Input, Datepicker, Row, Col} from "antd";
+import {Form, Input, Datepicker, Row, Col, Button} from "antd";
+import QuestModalComponent from './QuestModalComponent.jsx';
 const SubMenu = Menu.SubMenu;
 const FormItem = Form.Item;
 const InputGroup = Input.Group;
@@ -35,8 +36,7 @@ const HeaderComponent = React.createClass({
                             theme=""
                             mode="horizontal">
                             <Menu.Item key="mail">
-                                <Icon type="mail" />
-                                导航一
+                                <QuestModalComponent/>
                             </Menu.Item>
 
                             <Menu.Item key="app">
