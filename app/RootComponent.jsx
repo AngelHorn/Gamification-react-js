@@ -17,7 +17,7 @@ const RootComponent = React.createClass({
     render () {
         return (
             <div>
-                <HeaderComponent/>
+                <HeaderComponent {...this.props}/>
                 <Row>
                     <Col span="4">
                         <LeftNavComponent {...this.props}/>
@@ -32,11 +32,14 @@ const RootComponent = React.createClass({
 })
 
 function mapStateToProps(state) {
-  return {}
+  return {
+      current: state.current
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    onFetchAddQuest: (text,type,options) => dispatch(actions.fetchAddQuest(text,type,options)),
     onPutCurrentNavType: () => dispatch(actions.putCurrentNavType()),
     onFlashQuests: () => dispatch(actions.fetchQuests())
   }

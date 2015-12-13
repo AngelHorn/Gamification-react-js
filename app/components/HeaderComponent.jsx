@@ -36,7 +36,7 @@ const HeaderComponent = React.createClass({
                             theme=""
                             mode="horizontal">
                             <Menu.Item key="mail">
-                                <QuestModalComponent/>
+                                <QuestModalComponent {...this.props}/>
                             </Menu.Item>
 
                             <Menu.Item key="app">

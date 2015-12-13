@@ -70,12 +70,12 @@ export function fetchQuests() {
   }
 }
 
-export function fetchAddQuest(text, type) {
+export function fetchAddQuest(text, type, options = {}) {
   return (dispatch) => {
     return request
     .post('http://gamification.0x00000000.me/quests')
     .type('form')
-    .send({ text, type })
+    .send({ text, type, ...options })
     .end(function(err, res){
         let newQuest = res.body.data;
         dispatch(addQuest(newQuest))
