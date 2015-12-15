@@ -11,6 +11,7 @@ const QuestModalComponent = React.createClass({
   getInitialState() {
     return {
         visible: false,
+        loading: false,
         formData: {
           text: '',
           note: '',
@@ -49,6 +50,10 @@ const QuestModalComponent = React.createClass({
       options.deadline_at = formData.deadline_at;
     }
     this.props.onFetchAddQuest(formData.text,formData.type,options);
+    this.setState({ loading: true });
+    setTimeout(() => {
+      this.setState({ loading: false, visible: false });
+    }, 1000);
   },
   handleCancel() {
     this.setState({
@@ -139,6 +144,7 @@ const QuestModalComponent = React.createClass({
                   title= "添加任务"
                   width="800"
                   visible={this.state.visible}
+                  confirmLoading={this.state.loading}
                   onOk={this.handleOk}
                   onCancel={this.handleCancel}>
                   <Form horizontal>
