@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react'
 import ReactDOM from 'react-dom';
 import { Table, Checkbox } from 'antd';
 import { Row, Col } from 'antd';
-import { Modal, Button, Icon } from 'antd';
-import { Form, Input, Slider, InputNumber, Select, Datepicker, Timepicker} from 'antd';
+import { Modal, Button, Icon, ButtonGroup  } from 'antd';
+import { Form, Input, Slider, InputNumber, Select, Datepicker, Timepicker, Tag} from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const OptGroup = Select.OptGroup;
@@ -157,9 +157,23 @@ const DataGridComponent = React.createClass({
           title: '任务文本',
           dataIndex: 'text',
           render: (text, quest) => {
-              return <a href="javascript:;" onClick={() => this.handleQuestClick(quest)}>
-                  {text}
-              </a>;
+            return (
+              <Row>
+                <Col span="16">
+                  <a
+                    href="javascript:;"
+                    onClick={() => this.handleQuestClick(quest)}>
+                    {text}
+                  </a>
+                </Col>
+                <Col span="2">
+                  <Icon type="star-o" /> {quest.exp}
+                </Col>
+                <Col span="2">
+                  $ {quest.gold}
+                </Col>
+              </Row>
+            )
           }
       }];
       const rowSelection = {
