@@ -131,161 +131,167 @@ const QuestModalComponent = React.createClass({
     });
   },
   render() {
-      return (
-          <div>
-              <Button
-                  type="ghost"
-                  size="large"
-                  onClick={this.showModal}>
-                  <Icon type="plus" />
-                  添加
-              </Button>
-              <Modal
-                  title= "添加任务"
-                  width="800"
-                  visible={this.state.visible}
-                  confirmLoading={this.state.loading}
-                  onOk={this.handleOk}
-                  onCancel={this.handleCancel}>
-                  <Form horizontal>
-                      <FormItem>
-                          <Input
-                              type="textarea"
-                              placeholder="任务标题"
-                              name="text"
-                              value={this.state.formData.text}
-                              onChange={this.setValue.bind(this, 'text')} />
-                      </FormItem>
-                      <FormItem>
-                          <Input
-                              type="textarea"
-                              placeholder="备注"
-                              name="note"
-                              value={this.state.formData.note}
-                              onChange={this.setValue.bind(this, 'note')} />
-                      </FormItem>
-                      <FormItem
-                          label="EXP："
-                          labelCol={{span: 2}}
-                          wrapperCol={{span: 16}}>
-                          <div className="row">
-                              <div className="col-20">
-                                  <Slider
-                                      min={0}
-                                      max={9}
-                                      marks={[0,1,2,3,4,5,6,7,8,9]}
-                                      onChange={this.setValue.bind(this, 'exp')}
-                                      value={this.state.formData.exp} />
-                              </div>
-                              <div className="col-4">
-                                  <InputNumber
-                                      min={0}
-                                      max={900}
-                                      style={{marginLeft: '16px'}}
-                                      value={this.state.formData.exp}
-                                      onChange={this.setValue.bind(this, 'exp')} />
-                              </div>
-                          </div>
-                      </FormItem>
-                      <FormItem
-                          label="GOLD："
-                          labelCol={{span: 2}}
-                          wrapperCol={{span: 16}}>
-                          <div className="row">
-                              <div className="col-20">
-                                  <Slider
-                                      min={0}
-                                      max={9}
-                                      marks={[0,1,2,3,4,5,6,7,8,9]}
-                                      onChange={this.setValue.bind(this, 'gold')}
-                                      value={this.state.formData.gold} />
-                              </div>
-                              <div className="col-4">
-                                  <InputNumber
-                                      min={0}
-                                      max={900}
-                                      style={{marginLeft: '16px'}}
-                                      value={this.state.formData.gold}
-                                      onChange={this.setValue.bind(this, 'gold')} />
-                              </div>
-                          </div>
-                      </FormItem>
-                      <FormItem
-                          label="任务类型："
-                          labelCol={{span: 2}}
-                          wrapperCol={{span: 16}}>
-                          <Select
-                              value={this.state.formData.type}
-                              onChange={this.setValue.bind(this, 'type')}
-                              style={{width:120}}
-                              name="type">
-                              <Option value="1">今日待办</Option>
-                              <Option value="2">下一步行动</Option>
-                              <Option value="3">等待中</Option>
-                              <Option value="0">收集箱</Option>
-                          </Select>
-                      </FormItem>
-                      <FormItem
-                          label="截止时间："
-                          labelCol={{span: 2}}
-                          wrapperCol={{span: 16}}>
-                          <div className="row">
-                              <div className="col-6">
-                                  <Datepicker
-                                      format="yyyy/MM/dd"
-                                      onChange={this.handleDeadlineAtChange.bind(null, 'date')} />
-                              </div>
-                              <div className="col-6">
-                                  <Timepicker
-                                      format="HH:mm"
-                                      minuteOptions={[0, 15, 30 ,45]}
-                                      onChange={this.handleDeadlineAtChange.bind(null, 'time')} />
-                              </div>
-                          </div>
-                      </FormItem>
-                      <FormItem
-                          label="提醒时间："
-                          labelCol={{span: 2}}
-                          wrapperCol={{span: 16}}>
-                          <div className="row">
-                              <div className="col-6">
-                                  <Datepicker
-                                      format="yyyy/MM/dd"
-                                      onChange={this.handleAlertAtChange.bind(null, 'date')} />
-                              </div>
-                              <div className="col-6">
-                                  <Timepicker
-                                      format="HH:mm"
-                                      minuteOptions={[0, 15, 30 ,45]}
-                                      onChange={this.handleAlertAtChange.bind(null, 'time')} />
-                              </div>
-                          </div>
-                      </FormItem>
-                      <FormItem
-                          label="爹任务："
-                          labelCol={{span: 2}}
-                          wrapperCol={{span: 16}}>
-                          <Select
-                              style={{width: '100%'}}
-                              searchPlaceholder="选择爹任务"
-                              tags
-                              onChange={() => {}}>
-                              <Option value="1">今日待办</Option>
-                              <Option value="2">下一步行动</Option>
-                              <Option value="3">等待中</Option>
-                              <Option value="0">收集箱</Option>
-                              <OptGroup label="四大根分类">
-                                  <Option value="1">今日待办</Option>
-                                  <Option value="2">下一步行动</Option>
-                                  <Option value="3">等待中</Option>
-                                  <Option value="0">收集箱</Option>
-                              </OptGroup>
-                          </Select>
-                      </FormItem>
-                  </Form>
-              </Modal>
+    return (
+      <div>
+        <Button
+          type="ghost"
+          size="large"
+          onClick={this.showModal}>
+          <Icon type="plus" />
+          添加
+        </Button>
+        <Modal
+          title= "添加任务"
+          width="800"
+          visible={this.state.visible}
+          confirmLoading={this.state.loading}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}>
+          <Form horizontal>
+            <FormItem>
+              <Input
+                type="textarea"
+                placeholder="任务标题"
+                name="text"
+                value={this.state.formData.text}
+                onChange={this.setValue.bind(this, 'text')} />
+            </FormItem>
+            <FormItem>
+              <Input
+                type="textarea"
+                placeholder="备注"
+                name="note"
+                value={this.state.formData.note}
+                onChange={this.setValue.bind(this, 'note')} />
+            </FormItem>
+            <FormItem
+                label="EXP："
+                labelCol={{span: 2}}
+                wrapperCol={{span: 16}}>
+                <div className="row">
+                    <div className="col-20">
+                        <Slider
+                            min={0}
+                            max={100}
+                            step={null}
+                            marks={{0:"0",10:"10",20:"20",30:"30",40:"40",
+                              50:"50",60:"60",70:"70",80:"80",90:"90",100:"100"}}
+                            onChange={this.setValue.bind(this, 'exp')}
+                            value={this.state.formData.exp} />
+                    </div>
+                    <div className="col-4">
+                        <InputNumber
+                            min={0}
+                            max={900}
+                            step={10}
+                            style={{marginLeft: '16px'}}
+                            value={this.state.formData.exp}
+                            onChange={this.setValue.bind(this, 'exp')} />
+                    </div>
+                </div>
+            </FormItem>
+            <FormItem
+              label="GOLD："
+              labelCol={{span: 2}}
+              wrapperCol={{span: 16}}>
+              <div className="row">
+                <div className="col-20">
+                  <Slider
+                    min={0}
+                    max={100}
+                    step={null}
+                    marks={{0:"$0",10:"$10",20:"$20",30:"$30",40:"$40",
+                      50:"$50",60:"$60",70:"$70",80:"$80",90:"$90",100:"$100"}}
+                      onChange={this.setValue.bind(this, 'gold')}
+                      value={this.state.formData.gold} />
+                  </div>
+                  <div className="col-4">
+                    <InputNumber
+                      min={0}
+                      max={900}
+                      step={10}
+                      style={{marginLeft: '16px'}}
+                      value={this.state.formData.gold}
+                      onChange={this.setValue.bind(this, 'gold')} />
+                  </div>
+                </div>
+              </FormItem>
+                <FormItem
+                  label="任务类型："
+                  labelCol={{span: 2}}
+                  wrapperCol={{span: 16}}>
+                  <Select
+                    value={this.state.formData.type}
+                    onChange={this.setValue.bind(this, 'type')}
+                    style={{width:120}}
+                    name="type">
+                    <Option value="1">今日待办</Option>
+                    <Option value="2">下一步行动</Option>
+                    <Option value="3">等待中</Option>
+                    <Option value="0">收集箱</Option>
+                  </Select>
+                </FormItem>
+                <FormItem
+                  label="截止时间："
+                  labelCol={{span: 2}}
+                  wrapperCol={{span: 16}}>
+                  <div className="row">
+                    <div className="col-6">
+                      <Datepicker
+                        format="yyyy/MM/dd"
+                        onChange={this.handleDeadlineAtChange.bind(null, 'date')} />
+                    </div>
+                    <div className="col-6">
+                      <Timepicker
+                        format="HH:mm"
+                        minuteOptions={[0, 15, 30 ,45]}
+                        onChange={this.handleDeadlineAtChange.bind(null, 'time')} />
+                    </div>
+                  </div>
+                </FormItem>
+                <FormItem
+                  label="提醒时间："
+                  labelCol={{span: 2}}
+                  wrapperCol={{span: 16}}>
+                  <div className="row">
+                    <div className="col-6">
+                      <Datepicker
+                        format="yyyy/MM/dd"
+                        onChange={this.handleAlertAtChange.bind(null, 'date')} />
+                    </div>
+                    <div className="col-6">
+                      <Timepicker
+                        format="HH:mm"
+                        minuteOptions={[0, 15, 30 ,45]}
+                        onChange={this.handleAlertAtChange.bind(null, 'time')} />
+                    </div>
+                  </div>
+                </FormItem>
+                <FormItem
+                  label="爹任务："
+                  labelCol={{span: 2}}
+                  wrapperCol={{span: 16}}>
+                  <Select
+                    style={{width: '100%'}}
+                    searchPlaceholder="选择爹任务"
+                    tags
+                    onChange={() => {}}>
+                    <Option value="1">今日待办</Option>
+                    <Option value="2">下一步行动</Option>
+                    <Option value="3">等待中</Option>
+                    <Option value="0">收集箱</Option>
+                    <OptGroup label="四大根分类">
+                      <Option value="1">今日待办</Option>
+                      <Option value="2">下一步行动</Option>
+                      <Option value="3">等待中</Option>
+                      <Option value="0">收集箱</Option>
+                    </OptGroup>
+                  </Select>
+                </FormItem>
+              </Form>
+            </Modal>
           </div>
-      )
+        )
   }
 })
 export default QuestModalComponent

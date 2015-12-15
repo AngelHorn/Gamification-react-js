@@ -248,8 +248,10 @@ const DataGridComponent = React.createClass({
                                 <div className="col-20">
                                     <Slider
                                         min={0}
-                                        max={9}
-                                        marks={[0,1,2,3,4,5,6,7,8,9]}
+                                        max={100}
+                                        step={null}
+                                        marks={{0:"0",10:"10",20:"20",30:"30",40:"40",
+                                          50:"50",60:"60",70:"70",80:"80",90:"90",100:"100"}}
                                         onChange={this.setValue.bind(this, 'exp')}
                                         value={this.state.formData.exp} />
                                 </div>
@@ -257,6 +259,7 @@ const DataGridComponent = React.createClass({
                                     <InputNumber
                                         min={0}
                                         max={900}
+                                        step={10}
                                         style={{marginLeft: '16px'}}
                                         value={this.state.formData.exp}
                                         onChange={this.setValue.bind(this, 'exp')} />
@@ -271,8 +274,10 @@ const DataGridComponent = React.createClass({
                                 <div className="col-20">
                                     <Slider
                                         min={0}
-                                        max={9}
-                                        marks={[0,1,2,3,4,5,6,7,8,9]}
+                                        max={100}
+                                        step={null}
+                                        marks={{0:"$0",10:"$10",20:"$20",30:"$30",40:"$40",
+                                          50:"$50",60:"$60",70:"$70",80:"$80",90:"$90",100:"$100"}}
                                         onChange={this.setValue.bind(this, 'gold')}
                                         value={this.state.formData.gold} />
                                 </div>
@@ -280,6 +285,7 @@ const DataGridComponent = React.createClass({
                                     <InputNumber
                                         min={0}
                                         max={900}
+                                        step={10}
                                         style={{marginLeft: '16px'}}
                                         value={this.state.formData.gold}
                                         onChange={this.setValue.bind(this, 'gold')} />
