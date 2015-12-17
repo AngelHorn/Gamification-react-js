@@ -47,11 +47,11 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new ExtractTextPlugin('[name].css'),
     //Moves files
-    new TransferWebpackPlugin([
-      {
-        from: 'app'
-      }
-  ], path.resolve(__dirname, ""))
+  //   new TransferWebpackPlugin([
+  //     {
+  //       from: 'app'
+  //     }
+  // ], path.resolve(__dirname, ""))
   ],
   module: {
     preLoaders: [

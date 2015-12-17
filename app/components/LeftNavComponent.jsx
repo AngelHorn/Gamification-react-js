@@ -25,6 +25,9 @@ const LeftNavComponent = React.createClass({
             case 3:
             hash = "waiting"
             break;
+            case 4:
+            hash = "schedule"
+            break;
             case 5:
             hash = "done"
             break;
@@ -61,7 +64,9 @@ const LeftNavComponent = React.createClass({
                         <LeftNavComponentLengthSpan navKey="3" quests={this.props.quests}/></p></Link>
                 </Menu.Item>
                 <Menu.Item key="schedule">
-                    <Icon type="calendar" />日程表</Menu.Item>
+                    <Link to="/schedule"><p><Icon type="calendar" />日程表
+                        <LeftNavComponentLengthSpan navKey="4" quests={this.props.quests}/></p></Link>
+                </Menu.Item>
                 <Menu.Item disabled={true}/>
                 <Menu.Item key="done">
                     <Link to="/done"><p><Icon type="check-circle-o" />已完成

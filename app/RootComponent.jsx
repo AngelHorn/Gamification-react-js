@@ -10,7 +10,7 @@ import LeftNavComponent from './components/LeftNavComponent.jsx';
 
 const RootComponent = React.createClass({
     getInitialState() {
-        this.props.onFlashQuests();
+        this.props.onFetchQuests();
         window.onhashchange = () => this.props.onPutCurrentNavType();
         return {};
     },
@@ -39,9 +39,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    onFetchSchedules: () => dispatch(actions.fetchSchedules()),
     onFetchAddQuest: (text,type,options) => dispatch(actions.fetchAddQuest(text,type,options)),
     onPutCurrentNavType: () => dispatch(actions.putCurrentNavType()),
-    onFlashQuests: () => dispatch(actions.fetchQuests())
+    onFetchQuests: () => dispatch(actions.fetchQuests())
   }
 }
 

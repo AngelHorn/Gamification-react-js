@@ -12,6 +12,9 @@ switch (navType) {
     case "waiting":
         newState = 3
         break;
+    case "schedule":
+        newState = 4
+        break;
     case "done":
         newState = 5
         break
@@ -40,6 +43,9 @@ function current(state = defaultState, action) {
                   break;
               case "waiting":
                   newState = 3
+                  break;
+              case "schedule":
+                  newState = 4
                   break;
               case "done":
                   newState = 5

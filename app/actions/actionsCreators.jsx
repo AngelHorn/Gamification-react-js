@@ -114,3 +114,21 @@ export function fetchEditQuest(quest) {
     });
   }
 }
+
+export function fetchSchedules() {
+  return dispatch => {
+    //dispatch(requestPosts())
+    return request
+    .get('http://gamification.0x00000000.me/schedules')
+    .end(function(err, res){
+        // let shit = normalize(fuck, {data: arrayOf(new Schema('data'))})
+        // let data = normalize(fuck, arrayOf(new Schema('data')))
+        if(res.body.code == 200){
+          let schedules = res.body.data;
+          dispatch({type: actionTypes.RECEIVE_SCHEDULES, schedules})
+        }else{
+          alert("ERROR: CODE" + res.body.code);
+        }
+    });
+  }
+}

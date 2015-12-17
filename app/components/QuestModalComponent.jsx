@@ -63,30 +63,18 @@ const QuestModalComponent = React.createClass({
   handleDeadlineAtChange(from, value) {
     this.result = this.result || new Date();
     if (!value) {
-      if (from === 'date') {
         this.selectedDate = false;
-      } else {
-        this.selectedTime = false;
-      }
     } else {
-      if (from === 'date') {
         this.result.setFullYear(value.getFullYear());
         this.result.setMonth(value.getMonth());
         this.result.setDate(value.getDate());
         this.selectedDate = true;
-      } else {
-        this.result.setHours(value.getHours());
-        this.result.setMinutes(value.getMinutes());
-        this.selectedTime = true;
-      }
     }
     let deadline_at = '';
-    if (this.selectedDate && this.selectedTime) {
+    if (this.selectedDate) {
       deadline_at += this.result.getFullYear() + "-"
       deadline_at += this.result.getMonth() + "-"
-      deadline_at += this.result.getDate() + " "
-      deadline_at += this.result.getHours() + ":"
-      deadline_at += this.result.getMinutes() + ":00"
+      deadline_at += this.result.getDate()
     }
     this.setState({
       formData: {
@@ -240,12 +228,6 @@ const QuestModalComponent = React.createClass({
                       <Datepicker
                         format="yyyy/MM/dd"
                         onChange={this.handleDeadlineAtChange.bind(null, 'date')} />
-                    </div>
-                    <div className="col-6">
-                      <Timepicker
-                        format="HH:mm"
-                        minuteOptions={[0, 15, 30 ,45]}
-                        onChange={this.handleDeadlineAtChange.bind(null, 'time')} />
                     </div>
                   </div>
                 </FormItem>

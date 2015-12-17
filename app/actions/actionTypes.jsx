@@ -2,6 +2,9 @@ export default {
     //current
     PUT_CURRENT_NAV_TYPE: "PUT_CURRENT_NAV_TYPE",
 
+    //schedules
+    RECEIVE_SCHEDULES: "RECEIVE_SCHEDULES",
+
     //quests
     REQUEST_QUESTS: "REQUEST_QUESTS",
     RECEIVE_QUESTS: "RECEIVE_QUESTS",

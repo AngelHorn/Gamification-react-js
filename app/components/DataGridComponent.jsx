@@ -80,33 +80,20 @@ const DataGridComponent = React.createClass({
       });
     },
     handleDeadlineAtChange(from, value) {
-      console.log('shit');
       this.result = this.result || new Date();
       if (!value) {
-        if (from === 'date') {
           this.selectedDate = false;
-        } else {
-          this.selectedTime = false;
-        }
       } else {
-        if (from === 'date') {
           this.result.setFullYear(value.getFullYear());
           this.result.setMonth(value.getMonth());
           this.result.setDate(value.getDate());
           this.selectedDate = true;
-        } else {
-          this.result.setHours(value.getHours());
-          this.result.setMinutes(value.getMinutes());
-          this.selectedTime = true;
-        }
       }
       let deadline_at = '';
-      if (this.selectedDate && this.selectedTime) {
+      if (this.selectedDate) {
         deadline_at += this.result.getFullYear() + "-"
         deadline_at += this.result.getMonth() + "-"
-        deadline_at += this.result.getDate() + " "
-        deadline_at += this.result.getHours() + ":"
-        deadline_at += this.result.getMinutes() + ":00"
+        deadline_at += this.result.getDate()
       }
       this.setState({
         formData: {
@@ -114,7 +101,6 @@ const DataGridComponent = React.createClass({
           deadline_at
         }
       });
-      console.log(deadline_at);
     },
     handleAlertAtChange(from, value) {
       this.result = this.result || new Date();
@@ -314,23 +300,9 @@ const DataGridComponent = React.createClass({
                             <div className="row">
                                 <div className="col-6">
                                     <Datepicker
-                                        value={
-                                          this.state.formData.deadline_at ?
-                                          this.state.formData.deadline_at.split(" ")[0] : null
-                                        }
+                                        value={this.state.formData.deadline_at || null}
                                         format="yyyy-MM-dd"
                                         onChange={this.handleDeadlineAtChange.bind(null, 'date')} />
-                                </div>
-                                <div className="col-6">
-                                    <Timepicker
-                                        defaultValue={
-                                          this.state.formData.deadline_at ?
-                                          this.state.formData.deadline_at.split(" ")[1] : null
-                                        }
-                                        placeholder={this.state.formData.deadline_at}
-                                        format="HH:mm:ss"
-                                        minuteOptions={[0, 15, 30 ,45]}
-                                        onChange={this.handleDeadlineAtChange.bind(null, 'time')} />
                                 </div>
                             </div>
                         </FormItem>
