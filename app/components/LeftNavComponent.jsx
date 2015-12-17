@@ -65,7 +65,7 @@ const LeftNavComponent = React.createClass({
                 </Menu.Item>
                 <Menu.Item key="schedule">
                     <Link to="/schedule"><p><Icon type="calendar" />日程表
-                        <LeftNavComponentLengthSpan navKey="4" quests={this.props.quests}/></p></Link>
+                        <LeftNavComponentLengthSpan navKey="4" schedules={this.props.schedules}/></p></Link>
                 </Menu.Item>
                 <Menu.Item disabled={true}/>
                 <Menu.Item key="done">
@@ -94,6 +94,9 @@ const LeftNavComponentLengthSpan = React.createClass({
     handleLength (key) {
         let navCount;
         switch (parseInt(key)) {
+            case 4:
+                navCount = this.props.schedules;
+                break;
             case 5:
                 navCount = this.props.quests.filter((quest) => {
                     if(quest.state === 1){
@@ -121,6 +124,7 @@ const LeftNavComponentLengthSpan = React.createClass({
 function mapStateToProps(state) {
   return {
       quests: state.quests,
+      schedules: state.schedules,
       current: state.current
   }
 }

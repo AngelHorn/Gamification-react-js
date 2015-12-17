@@ -4,16 +4,6 @@ import { Row, Col, Input, Table, Icon} from 'antd';
 import * as actions from '../actions/actionsCreators.jsx';
 import DataGridComponent from '../components/DataGridComponent.jsx'
 
-
-
-function dateCellRender(value) {
-  return <div>自定义日数据</div>;
-}
-
-function monthCellRender(value) {
-  return <div>自定义月数据</div>;
-}
-
 const ScheduleContainer = React.createClass({
   getInitialState () {
       //数据驱动！！
@@ -87,7 +77,7 @@ const ScheduleContainer = React.createClass({
                       style={{overflowY:"auto",height:this.state.dataGridHeight,}}
                       rowSelection={rowSelection}
                       columns={columns}
-                      dataSource={this.props.quests}
+                      dataSource={this.props.schedules}
                       rowKey={(recode, index) => recode.id}
                       pagination={false}
                       />
@@ -99,11 +89,10 @@ const ScheduleContainer = React.createClass({
 })
 
 function mapStateToProps(state) {
-    // let quests = state.schedules.filter((schedule) => schedule.type === 4 && schedule.state === 0);
-  // return {
-  //     quests,
-  //     current: state.current
-  // }
+    let schedules = state.schedules;
+  return {
+      schedules,
+  }
 }
 
 function mapDispatchToProps(dispatch) {

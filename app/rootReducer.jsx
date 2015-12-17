@@ -5,8 +5,9 @@ import current from './reducers/current.jsx';
 import schedules from './reducers/schedules.jsx';
 
 export const reducers = {
-    quests,
-    current
+  schedules,
+  quests,
+  current
 };
 
 let rootReducer = combineReducers(reducers);

@@ -11,6 +11,7 @@ import LeftNavComponent from './components/LeftNavComponent.jsx';
 const RootComponent = React.createClass({
     getInitialState() {
         this.props.onFetchQuests();
+        this.props.onFetchSchedules();
         window.onhashchange = () => this.props.onPutCurrentNavType();
         return {};
     },
