@@ -5,7 +5,10 @@ function schedules(state = [], action) {
   let scheduleIndex
   switch (action.type) {
     case actionTypes.RECEIVE_SCHEDULES:
-    return action.schedules.reverse();
+      return action.schedules.reverse();
+    case actionTypes.ADD_SCHEDULE:
+      newSchedule;
+      return state;
     default:
       return state;
   }

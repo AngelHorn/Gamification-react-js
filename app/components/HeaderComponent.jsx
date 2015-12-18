@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { Menu, Icon, Switch } from 'antd';
 import {Form, Input, Datepicker, Row, Col, Button} from "antd";
 import QuestModalComponent from './QuestModalComponent.jsx';
+import ScheduleModalComponent from './ScheduleModalComponent.jsx';
 const SubMenu = Menu.SubMenu;
 const FormItem = Form.Item;
 const InputGroup = Input.Group;
@@ -40,8 +41,7 @@ const HeaderComponent = React.createClass({
                             </Menu.Item>
 
                             <Menu.Item key="app">
-                                <Icon type="mail" />
-                                导航一
+                                <ScheduleModalComponent {...this.props}/>
                             </Menu.Item>
                             <SubMenu title={
                                     <span>

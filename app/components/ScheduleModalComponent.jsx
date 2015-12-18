@@ -6,11 +6,10 @@ const Option = Select.Option;
 const OptGroup = Select.OptGroup;
 
 
-const QuestModalComponent = React.createClass({
+const ScheduleModalComponent = React.createClass({
   mixins: [Form.ValueMixin],
   getInitialState() {
     return {
-        addButtonState: 'disabled',
         visible: false,
         loading: false,
         formData: {
@@ -18,7 +17,6 @@ const QuestModalComponent = React.createClass({
           note: '',
           exp: 0,
           gold: 0,
-          type: this.props.current.navType.toString(),
           alert_at: '',
           deadline_at: ''
         }
@@ -27,9 +25,7 @@ const QuestModalComponent = React.createClass({
   showModal() {
     this.setState({
       visible: true,
-      formData: {...this.state.formData,
-        type: this.props.current.navType.toString()
-      }
+      formData: {...this.state.formData}
     });
   },
   handleOk() {
@@ -119,30 +115,16 @@ const QuestModalComponent = React.createClass({
       }
     });
   },
-  handleNavTypeChange(){
-    let addButtonState = 'disabled';
-    if([0,1,2,3].findIndex((navType) => navType == this.props.current.navType) > -1){
-          addButtonState = '';
-    }
-    return addButtonState;
-    this.setState({
-      visible: true,
-      formData: {...this.state.formData,
-        type: this.props.current.navType.toString()
-      }
-    });
-  },
   render() {
     return (
       <div>
         <Button
-          disabled={this.handleNavTypeChange()}
           type="primary"
           onClick={this.showModal}>
-          <Icon type="plus-circle-o" />任务
+          <Icon type="plus-circle-o" />日程
         </Button>
         <Modal
-          title= "添加任务"
+          title= "添加日程"
           width="800"
           visible={this.state.visible}
           confirmLoading={this.state.loading}
@@ -218,22 +200,23 @@ const QuestModalComponent = React.createClass({
                 </div>
               </FormItem>
                 <FormItem
-                  label="任务类型："
+                  label="重复类型："
                   labelCol={{span: 2}}
                   wrapperCol={{span: 16}}>
                   <Select
-                    value={this.state.formData.type}
-                    onChange={this.setValue.bind(this, 'type')}
+                    defaultValue="1"
                     style={{width:120}}
                     name="type">
-                    <Option value="1">今日待办</Option>
-                    <Option value="2">下一步行动</Option>
-                    <Option value="3">等待中</Option>
-                    <Option value="0">收集箱</Option>
+                    <Option value="1">单次</Option>
+                    <Option value="2">学习</Option>
+                    <Option value="3">每日</Option>
+                    <Option value="4">每周</Option>
+                    <Option value="5">每月</Option>
+                    <Option value="6">每年</Option>
                   </Select>
                 </FormItem>
                 <FormItem
-                  label="截止时间："
+                  label="开始时间："
                   labelCol={{span: 2}}
                   wrapperCol={{span: 16}}>
                   <div className="row">
@@ -251,11 +234,13 @@ const QuestModalComponent = React.createClass({
                   <div className="row">
                     <div className="col-6">
                       <Datepicker
+                        disabled
                         format="yyyy/MM/dd"
                         onChange={this.handleAlertAtChange.bind(null, 'date')} />
                     </div>
                     <div className="col-6">
                       <Timepicker
+                        disabled
                         format="HH:mm"
                         minuteOptions={[0, 15, 30 ,45]}
                         onChange={this.handleAlertAtChange.bind(null, 'time')} />
@@ -289,4 +274,4 @@ const QuestModalComponent = React.createClass({
         )
   }
 })
-export default QuestModalComponent
+export default ScheduleModalComponent

@@ -23,12 +23,10 @@ export function cancelCompleteQuest(id) {
     .type('form')
     .send({ state: 0})
     .end(function(err, res){
-        if(res.body.code == 200){
-            let newQuest = res.body.data;
-            dispatch({type: actionTypes.CANCEL_COMPLETE_QUEST,id})
-        }else{
-          alert("ERROR: CODE" + res.body.code);
-        }
+      requestCodeHandler(res.body.code, () => {
+        let newQuest = res.body.data;
+        dispatch({type: actionTypes.CANCEL_COMPLETE_QUEST,id})
+      });
     });
   }
 }
@@ -40,12 +38,10 @@ export function completeQuest(id) {
     .type('form')
     .send({ state: 1})
     .end(function(err, res){
-        if(res.body.code == 200){
-          let newQuest = res.body.data;
-          dispatch({type: actionTypes.COMPLETE_QUEST,id})
-        }else{
-          alert("ERROR: CODE" + res.body.code);
-        }
+      requestCodeHandler(res.body.code, () => {
+        let newQuest = res.body.data;
+        dispatch({type: actionTypes.COMPLETE_QUEST,id})
+      });
     });
   }
 }
@@ -69,14 +65,12 @@ export function fetchQuests() {
     return request
     .get('http://gamification.0x00000000.me/quests/tree')
     .end(function(err, res){
+      requestCodeHandler(res.body.code, () => {
         // let shit = normalize(fuck, {data: arrayOf(new Schema('data'))})
         // let data = normalize(fuck, arrayOf(new Schema('data')))
-        if(res.body.code == 200){
-          let quests = res.body.data;
-          dispatch(receiveQuests(quests))
-        }else{
-          alert("ERROR: CODE" + res.body.code);
-        }
+        let quests = res.body.data;
+        dispatch(receiveQuests(quests))
+      });
     });
   }
 }
@@ -88,12 +82,10 @@ export function fetchAddQuest(text, type, options = {}) {
     .type('form')
     .send({ text, type, ...options })
     .end(function(err, res){
-        if(res.body.code == 200){
-          let newQuest = res.body.data;
-          dispatch(addQuest(newQuest))
-        }else{
-          alert("ERROR: CODE" + res.body.code);
-        }
+      requestCodeHandler(res.body.code, () => {
+        let newQuest = res.body.data;
+        dispatch(addQuest(newQuest))
+      });
     });
   }
 }
@@ -105,12 +97,10 @@ export function fetchEditQuest(quest) {
     .type('form')
     .send(quest)
     .end(function(err, res){
-        if(res.body.code == 200){
-          let newQuest = res.body.data;
-          dispatch({type: actionTypes.EDIT_QUEST, newQuest})
-        }else{
-          alert("ERROR: CODE" + res.body.code);
-        }
+      requestCodeHandler(res.body.code, () => {
+        let newQuest = res.body.data;
+        dispatch({type: actionTypes.EDIT_QUEST, newQuest})
+      });
     });
   }
 }
@@ -123,12 +113,43 @@ export function fetchSchedules() {
     .end(function(err, res){
         // let shit = normalize(fuck, {data: arrayOf(new Schema('data'))})
         // let data = normalize(fuck, arrayOf(new Schema('data')))
-        if(res.body.code == 200){
+        requestCodeHandler(res.body.code, () => {
           let schedules = res.body.data;
           dispatch({type: actionTypes.RECEIVE_SCHEDULES, schedules})
-        }else{
-          alert("ERROR: CODE" + res.body.code);
-        }
+        });
     });
+  }
+}
+
+export function fetchAddSchedule(text, type, options = {}) {
+  return (dispatch) => {
+    return request
+    .post('http://gamification.0x00000000.me/schedules')
+    .type('form')
+    .send({ text, type, ...options })
+    .end(function(err, res){
+      requestCodeHandler(res.body.code, () => {
+        let newQuest = res.body.data;
+        dispatch({
+            type: actionTypes.ADD_SCHEDULE,
+            newSchedule
+        })
+      });
+    });
+  }
+}
+
+/***** 以下为通用函数库 *****/
+function requestCodeHandler(code, callback){
+  switch (code) {
+    case 200:
+      callback();
+      break;
+    case 413:
+      alert("系统检测到您的登录状态已经跨日！将为您刷新浏览器以获取新数据");
+      window.location.reload();
+      break;
+    default:
+      alert("未知的错误码:" + code);
   }
 }

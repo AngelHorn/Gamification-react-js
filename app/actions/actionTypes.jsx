@@ -4,6 +4,8 @@ export default {
 
     //schedules
     RECEIVE_SCHEDULES: "RECEIVE_SCHEDULES",
+    ADD_SCHEDULE: "ADD_SCHEDULE",
+
 
     //quests
     REQUEST_QUESTS: "REQUEST_QUESTS",

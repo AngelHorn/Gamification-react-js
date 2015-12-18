@@ -23,21 +23,42 @@ const ScheduleContainer = React.createClass({
           colSpan: 0,
           title: '任务文本',
           dataIndex: 'text',
-          render: (text, quest) => {
+          render: (text, schedule) => {
             return (
               <Row>
                 <Col span="16">
                   <a
                     href="javascript:;"
-                    onClick={() => this.handleQuestClick(quest)}>
+                    onClick={() => this.handleQuestClick(schedule)}>
                     {text}
                   </a>
                 </Col>
                 <Col span="2">
-                  <Icon type="star-o" /> {quest.exp}
+                  <Icon type="star-o" /> {schedule.exp}
                 </Col>
                 <Col span="2">
-                  $ {quest.gold}
+                  $ {schedule.gold}
+                </Col>
+                <Col span="2">
+                  <Icon type="tag-o" /> {function(){
+                      switch (schedule.repeat_type) {
+                        case 1:
+                          return "单次"
+                        case 2:
+                          return "学习"
+                        case 3:
+                          switch (schedule.repeat_limitless_type) {
+                            case 1:
+                              return "每日"
+                            case 2:
+                              return "每周"
+                            case 3:
+                              return "每月"
+                            case 4:
+                              return "每年"
+                          }
+                      }
+                  }()}
                 </Col>
               </Row>
             )
