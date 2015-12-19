@@ -139,6 +139,24 @@ export function fetchAddSchedule(formData) {
   }
 }
 
+export function fetchEditSchedule(formData) {
+  return (dispatch) => {
+    return request
+    .put('http://gamification.0x00000000.me/schedules/' + formData.id)
+    .type('form')
+    .send(formData)
+    .end(function(err, res){
+      requestCodeHandler(res.body.code, () => {
+        let newSchedule = res.body.data;
+        dispatch({
+            type: actionTypes.EDIT_SCHEDULE,
+            newSchedule
+        })
+      });
+    });
+  }
+}
+
 /***** 以下为通用函数库 *****/
 function requestCodeHandler(code, callback){
   switch (code) {

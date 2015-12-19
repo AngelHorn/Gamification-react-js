@@ -22,7 +22,7 @@ const ScheduleModalComponent = React.createClass({
           exp: 0,
           gold: 0,
           repeat_type: 1,
-          alert_at: '',
+          // alert_at: '',
           start_at
         }
      };
@@ -35,23 +35,24 @@ const ScheduleModalComponent = React.createClass({
   },
   handleOk() {
     let formData = this.state.formData;
-    let options = {};
+    let schedule = {
+      text: formData.text,
+      repeat_type: formData.repeat_type,
+      start_at: formData.start_at
+    };
     if(formData.note){
-      options.note = formData.note;
+      schedule.note = formData.note;
     }
     if(formData.exp){
-      options.exp = formData.exp;
+      schedule.exp = formData.exp;
     }
     if(formData.gold){
-      options.gold = formData.gold;
+      schedule.gold = formData.gold;
     }
     if(formData.alert_at){
-      options.alert_at = formData.alert_at;
+      schedule.alert_at = formData.alert_at;
     }
-    if(formData.start_at){
-      options.start_at = formData.start_at;
-    }
-    this.props.onFetchAddSchedule(formData);
+    this.props.onFetchAddSchedule(schedule);
     this.setState({ loading: true });
     setTimeout(() => {
       this.setState({ loading: false, visible: false });
@@ -214,7 +215,7 @@ const ScheduleModalComponent = React.createClass({
                     onChange={this.setValue.bind(this, 'repeat_type')}
                     name="repeat_type">
                     <Option value="1">单次</Option>
-                    <Option value="2">学习</Option>
+                    <Option value="2">复习</Option>
                     <Option value="3">每日</Option>
                     <Option value="4">每周</Option>
                     <Option value="5">每月</Option>

@@ -11,18 +11,131 @@ import * as actions from '../actions/actionsCreators.jsx';
 import DataGridComponent from '../components/DataGridComponent.jsx'
 
 const ScheduleContainer = React.createClass({
-  getInitialState () {
-      //数据驱动！！
-      //head高度与dataGrid的高度定义
-      let height = document.body.offsetHeight
-      let headerHeight = height * 0.2 +"px";
-      let dataGridHeight = parseInt(height * 0.7) +"px";
-      return {
-          headerHeight,
-          dataGridHeight,
-          editModalVisible: false,
-          editModalLoading: false
+  mixins: [Form.ValueMixin],
+  getInitialState() {
+    //数据驱动！！
+    //head高度与dataGrid的高度定义
+    let height = document.body.offsetHeight
+    let headerHeight = height * 0.2 +"px";
+    let dataGridHeight = parseInt(height * 0.7) +"px";
+
+    let start_at;
+    start_at = (new Date()).getFullYear() + "-"
+    start_at += (new Date()).getMonth() + 1 + "-"
+    start_at += (new Date()).getDate() + 1
+    return {
+        headerHeight,
+        dataGridHeight,
+        editModalVisible: false,
+        editModalLoading: false,
+        formData: {
+          text: '',
+          note: '',
+          exp: 0,
+          gold: 0,
+          repeat_type: 1,
+          alert_at: '',
+          start_at
+        }
+     };
+  },
+  handleScheduleClick (schedule) {
+    this.setState({
+      editModalVisible: true,
+      formData: {
+        ...schedule,
+        repeat_type: schedule.repeat_type.toString()
       }
+    });
+  },
+  handleOk() {
+    let formData = this.state.formData;
+    let schedule = {
+      id: formData.id,
+      text: formData.text,
+      repeat_type: formData.repeat_type,
+      start_at: formData.start_at
+    };
+    if(formData.note){
+      schedule.note = formData.note;
+    }
+    if(formData.exp){
+      schedule.exp = formData.exp;
+    }
+    if(formData.gold){
+      schedule.gold = formData.gold;
+    }
+    if(formData.alert_at){
+      schedule.alert_at = formData.alert_at;
+    }
+    this.props.onFetchEditSchedule(schedule);
+    this.setState({ editModalLoading: true });
+    setTimeout(() => {
+      this.setState({ editModalLoading: false, editModalVisible: false });
+    }, 1000);
+  },
+  handleCancel() {
+    this.setState({
+      editModalVisible: false
+    });
+  },
+  handleStartAtChange(from, value) {
+    this.result = this.result || new Date();
+    if (!value) {
+        this.selectedDate = false;
+    } else {
+        this.result.setFullYear(value.getFullYear());
+        this.result.setMonth(value.getMonth());
+        this.result.setDate(value.getDate());
+        this.selectedDate = true;
+    }
+    let start_at = '';
+    if (this.selectedDate) {
+      start_at += this.result.getFullYear() + "-"
+      start_at += this.result.getMonth() + "-"
+      start_at += this.result.getDate()
+    }
+    this.setState({
+      formData: {
+        ...this.state.formData,
+        start_at
+      }
+    });
+  },
+  handleAlertAtChange(from, value) {
+    this.result = this.result || new Date();
+    if (!value) {
+      if (from === 'date') {
+        this.selectedDate = false;
+      } else {
+        this.selectedTime = false;
+      }
+    } else {
+      if (from === 'date') {
+        this.result.setFullYear(value.getFullYear());
+        this.result.setMonth(value.getMonth());
+        this.result.setDate(value.getDate());
+        this.selectedDate = true;
+      } else {
+        this.result.setHours(value.getHours());
+        this.result.setMinutes(value.getMinutes());
+        this.selectedTime = true;
+      }
+    }
+
+    let alert_at = '';
+    if (this.selectedDate && this.selectedTime) {
+      alert_at += this.result.getFullYear() + "-"
+      alert_at += this.result.getMonth() + "-"
+      alert_at += this.result.getDate() + " "
+      alert_at += this.result.getHours() + ":"
+      alert_at += this.result.getMinutes() + ":00"
+    }
+    this.setState({
+      formData: {...this.state.formData,
+        alert_at
+      }
+    });
   },
     render () {
       const columns = [{
@@ -35,7 +148,7 @@ const ScheduleContainer = React.createClass({
                 <Col span="16">
                   <a
                     href="javascript:;"
-                    onClick={() => this.handleQuestClick(schedule)}>
+                    onClick={() => this.handleScheduleClick(schedule)}>
                     {text}
                   </a>
                 </Col>
@@ -51,7 +164,7 @@ const ScheduleContainer = React.createClass({
                         case 1:
                           return "单次"
                         case 2:
-                          return "学习"
+                          return "复习"
                         case 3:
                           return "每日"
                         case 4:
@@ -94,6 +207,158 @@ const ScheduleContainer = React.createClass({
                       />
               </Col>
           </Row>
+          <Modal
+            title= "添加日程"
+            width="800"
+            visible={this.state.editModalVisible}
+            confirmLoading={this.state.editModalLoading}
+            onOk={this.handleOk}
+            onCancel={this.handleCancel}>
+            <Form horizontal>
+              <FormItem>
+                <Input
+                  type="textarea"
+                  placeholder="任务标题"
+                  name="text"
+                  value={this.state.formData.text}
+                  onChange={this.setValue.bind(this, 'text')} />
+              </FormItem>
+              <FormItem>
+                <Input
+                  type="textarea"
+                  placeholder="备注"
+                  name="note"
+                  value={this.state.formData.note}
+                  onChange={this.setValue.bind(this, 'note')} />
+              </FormItem>
+              <FormItem
+                  label="EXP："
+                  labelCol={{span: 2}}
+                  wrapperCol={{span: 16}}>
+                  <div className="row">
+                      <div className="col-20">
+                          <Slider
+                              min={0}
+                              max={100}
+                              step={null}
+                              marks={{0:"0",10:"10",20:"20",30:"30",40:"40",
+                                50:"50",60:"60",70:"70",80:"80",90:"90",100:"100"}}
+                              onChange={this.setValue.bind(this, 'exp')}
+                              value={this.state.formData.exp} />
+                      </div>
+                      <div className="col-4">
+                          <InputNumber
+                              min={0}
+                              max={900}
+                              step={10}
+                              style={{marginLeft: '16px'}}
+                              value={this.state.formData.exp}
+                              onChange={this.setValue.bind(this, 'exp')} />
+                      </div>
+                  </div>
+              </FormItem>
+              <FormItem
+                label="GOLD："
+                labelCol={{span: 2}}
+                wrapperCol={{span: 16}}>
+                <div className="row">
+                  <div className="col-20">
+                    <Slider
+                      min={0}
+                      max={100}
+                      step={null}
+                      marks={{0:"$0",10:"$10",20:"$20",30:"$30",40:"$40",
+                        50:"$50",60:"$60",70:"$70",80:"$80",90:"$90",100:"$100"}}
+                        onChange={this.setValue.bind(this, 'gold')}
+                        value={this.state.formData.gold} />
+                    </div>
+                    <div className="col-4">
+                      <InputNumber
+                        min={0}
+                        max={900}
+                        step={10}
+                        style={{marginLeft: '16px'}}
+                        value={this.state.formData.gold}
+                        onChange={this.setValue.bind(this, 'gold')} />
+                    </div>
+                  </div>
+                </FormItem>
+                  <FormItem
+                    label="重复类型："
+                    labelCol={{span: 2}}
+                    wrapperCol={{span: 16}}>
+                    <Select
+                      value={this.state.formData.repeat_type.toString()}
+                      style={{width:120}}
+                      onChange={this.setValue.bind(this, 'repeat_type')}
+                      name="repeat_type">
+                      <Option value="1">单次</Option>
+                      <Option value="2">复习</Option>
+                      <Option value="3">每日</Option>
+                      <Option value="4">每周</Option>
+                      <Option value="5">每月</Option>
+                      <Option value="6">每年</Option>
+                    </Select>
+                  </FormItem>
+                  <FormItem
+                    label="开始时间："
+                    labelCol={{span: 2}}
+                    wrapperCol={{span: 16}}>
+                    <div className="row">
+                      <div className="col-6">
+                        <Datepicker
+                          defaultValue={this.state.formData.start_at}
+                          disabledDate={function(current, value) {
+                            return current && current.getTime() < Date.now();
+                          }}
+                          format="yyyy-MM-dd"
+                          onChange={this.handleStartAtChange.bind(null, 'date')} />
+                      </div>
+                    </div>
+                  </FormItem>
+                  <FormItem
+                    label="提醒时间："
+                    labelCol={{span: 2}}
+                    wrapperCol={{span: 16}}>
+                    <div className="row">
+                      <div className="col-6">
+                        <Datepicker
+                          disabled
+                          format="yyyy/MM/dd"
+                          onChange={this.handleAlertAtChange.bind(null, 'date')} />
+                      </div>
+                      <div className="col-6">
+                        <Timepicker
+                          disabled
+                          format="HH:mm"
+                          minuteOptions={[0, 15, 30 ,45]}
+                          onChange={this.handleAlertAtChange.bind(null, 'time')} />
+                      </div>
+                    </div>
+                  </FormItem>
+                  <FormItem
+                    label="爹任务："
+                    labelCol={{span: 2}}
+                    wrapperCol={{span: 16}}>
+                    <Select
+                      style={{width: '100%'}}
+                      searchPlaceholder="选择爹任务"
+                      tags
+                      onChange={() => {}}>
+                      <Option value="1">今日待办</Option>
+                      <Option value="2">下一步行动</Option>
+                      <Option value="3">等待中</Option>
+                      <Option value="0">收集箱</Option>
+                      <OptGroup label="四大根分类">
+                        <Option value="1">今日待办</Option>
+                        <Option value="2">下一步行动</Option>
+                        <Option value="3">等待中</Option>
+                        <Option value="0">收集箱</Option>
+                      </OptGroup>
+                    </Select>
+                  </FormItem>
+                </Form>
+              </Modal>
         </div>
       )
     }
@@ -108,9 +373,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onFetchEditQuest: (quest) => dispatch(actions.fetchEditQuest(quest)),
-    onFetchAddQuest: (text,type) => dispatch(actions.fetchAddQuest(text,type)),
-    onCompleteQuest: (id) => dispatch(actions.completeQuest(id))
+    onFetchEditSchedule: (schedule) => dispatch(actions.fetchEditSchedule(schedule)),
   }
 }
 

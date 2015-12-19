@@ -52,23 +52,27 @@ const DataGridComponent = React.createClass({
     },
     handleOk() {
       let formData = this.state.formData;
-      let options = {};
+      let quest = {
+        id: formData.id,
+        text: formData.text,
+        type: formData.type
+      };
       if(formData.note){
-        options.note = formData.note;
+        quest.note = formData.note;
       }
       if(formData.exp){
-        options.exp = formData.exp;
+        quest.exp = formData.exp;
       }
       if(formData.gold){
-        options.gold = formData.gold;
+        quest.gold = formData.gold;
       }
       if(formData.alert_at){
-        options.alert_at = formData.alert_at;
+        quest.alert_at = formData.alert_at;
       }
       if(formData.deadline_at){
-        options.deadline_at = formData.deadline_at;
+        quest.deadline_at = formData.deadline_at;
       }
-      this.props.onFetchAddSchedule( formData.text, formData.type, options );
+      this.props.onFetchEditQuest(quest);
       this.setState({ editModalLoading: true });
       setTimeout(() => {
         this.setState({ editModalLoading: false, editModalVisible: false });
