@@ -121,15 +121,15 @@ export function fetchSchedules() {
   }
 }
 
-export function fetchAddSchedule(text, type, options = {}) {
+export function fetchAddSchedule(formData) {
   return (dispatch) => {
     return request
     .post('http://gamification.0x00000000.me/schedules')
     .type('form')
-    .send({ text, type, ...options })
+    .send(formData)
     .end(function(err, res){
       requestCodeHandler(res.body.code, () => {
-        let newQuest = res.body.data;
+        let newSchedule = res.body.data;
         dispatch({
             type: actionTypes.ADD_SCHEDULE,
             newSchedule

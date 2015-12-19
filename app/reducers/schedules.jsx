@@ -7,8 +7,7 @@ function schedules(state = [], action) {
     case actionTypes.RECEIVE_SCHEDULES:
       return action.schedules.reverse();
     case actionTypes.ADD_SCHEDULE:
-      newSchedule;
-      return state;
+      return [ action.newSchedule, ...state ];
     default:
       return state;
   }

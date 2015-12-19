@@ -68,7 +68,7 @@ const DataGridComponent = React.createClass({
       if(formData.deadline_at){
         options.deadline_at = formData.deadline_at;
       }
-      this.props.onFetchEditQuest(formData);
+      this.props.onFetchAddSchedule( formData.text, formData.type, options );
       this.setState({ editModalLoading: true });
       setTimeout(() => {
         this.setState({ editModalLoading: false, editModalVisible: false });
@@ -152,10 +152,10 @@ const DataGridComponent = React.createClass({
                     {text}
                   </a>
                 </Col>
-                <Col span="2">
+                <Col span="2" style={{color:"#5E30B5"}}>
                   <Icon type="star-o" /> {quest.exp}
                 </Col>
-                <Col span="2">
+                <Col span="2" style={{color:"#FF6100"}}>
                   $ {quest.gold}
                 </Col>
               </Row>

@@ -9,6 +9,10 @@ const OptGroup = Select.OptGroup;
 const ScheduleModalComponent = React.createClass({
   mixins: [Form.ValueMixin],
   getInitialState() {
+    let start_at;
+    start_at = (new Date()).getFullYear() + "-"
+    start_at += (new Date()).getMonth() + 1 + "-"
+    start_at += (new Date()).getDate() + 1
     return {
         visible: false,
         loading: false,
@@ -17,8 +21,9 @@ const ScheduleModalComponent = React.createClass({
           note: '',
           exp: 0,
           gold: 0,
+          repeat_type: 1,
           alert_at: '',
-          deadline_at: ''
+          start_at
         }
      };
   },
@@ -43,10 +48,10 @@ const ScheduleModalComponent = React.createClass({
     if(formData.alert_at){
       options.alert_at = formData.alert_at;
     }
-    if(formData.deadline_at){
-      options.deadline_at = formData.deadline_at;
+    if(formData.start_at){
+      options.start_at = formData.start_at;
     }
-    this.props.onFetchAddQuest(formData.text,formData.type,options);
+    this.props.onFetchAddSchedule(formData);
     this.setState({ loading: true });
     setTimeout(() => {
       this.setState({ loading: false, visible: false });
@@ -57,7 +62,7 @@ const ScheduleModalComponent = React.createClass({
       visible: false
     });
   },
-  handleDeadlineAtChange(from, value) {
+  handleStartAtChange(from, value) {
     this.result = this.result || new Date();
     if (!value) {
         this.selectedDate = false;
@@ -67,16 +72,16 @@ const ScheduleModalComponent = React.createClass({
         this.result.setDate(value.getDate());
         this.selectedDate = true;
     }
-    let deadline_at = '';
+    let start_at = '';
     if (this.selectedDate) {
-      deadline_at += this.result.getFullYear() + "-"
-      deadline_at += this.result.getMonth() + "-"
-      deadline_at += this.result.getDate()
+      start_at += this.result.getFullYear() + "-"
+      start_at += this.result.getMonth() + "-"
+      start_at += this.result.getDate()
     }
     this.setState({
       formData: {
         ...this.state.formData,
-        deadline_at
+        start_at
       }
     });
   },
@@ -204,9 +209,10 @@ const ScheduleModalComponent = React.createClass({
                   labelCol={{span: 2}}
                   wrapperCol={{span: 16}}>
                   <Select
-                    defaultValue="1"
+                    value={this.state.formData.repeat_type.toString()}
                     style={{width:120}}
-                    name="type">
+                    onChange={this.setValue.bind(this, 'repeat_type')}
+                    name="repeat_type">
                     <Option value="1">单次</Option>
                     <Option value="2">学习</Option>
                     <Option value="3">每日</Option>
@@ -222,8 +228,12 @@ const ScheduleModalComponent = React.createClass({
                   <div className="row">
                     <div className="col-6">
                       <Datepicker
-                        format="yyyy/MM/dd"
-                        onChange={this.handleDeadlineAtChange.bind(null, 'date')} />
+                        defaultValue={this.state.formData.start_at}
+                        disabledDate={function(current, value) {
+                          return current && current.getTime() < Date.now();
+                        }}
+                        format="yyyy-MM-dd"
+                        onChange={this.handleStartAtChange.bind(null, 'date')} />
                     </div>
                   </div>
                 </FormItem>

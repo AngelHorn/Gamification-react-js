@@ -1,6 +1,12 @@
 import React, { PropTypes } from 'react'
 import {connect} from 'react-redux';
 import { Row, Col, Input, Table, Icon} from 'antd';
+import { Modal, Button } from 'antd';
+import { Form, Slider, InputNumber, Select, Datepicker, Timepicker} from 'antd';
+const FormItem = Form.Item;
+const Option = Select.Option;
+const OptGroup = Select.OptGroup;
+
 import * as actions from '../actions/actionsCreators.jsx';
 import DataGridComponent from '../components/DataGridComponent.jsx'
 
@@ -33,13 +39,13 @@ const ScheduleContainer = React.createClass({
                     {text}
                   </a>
                 </Col>
-                <Col span="2">
+                <Col span="2" style={{color:"#5E30B5"}}>
                   <Icon type="star-o" /> {schedule.exp}
                 </Col>
-                <Col span="2">
+                <Col span="2" style={{color:"#FF6100"}}>
                   $ {schedule.gold}
                 </Col>
-                <Col span="2">
+                <Col span="2" style={{color:"#01BAD2"}}>
                   <Icon type="tag-o" /> {function(){
                       switch (schedule.repeat_type) {
                         case 1:
@@ -47,16 +53,15 @@ const ScheduleContainer = React.createClass({
                         case 2:
                           return "学习"
                         case 3:
-                          switch (schedule.repeat_limitless_type) {
-                            case 1:
-                              return "每日"
-                            case 2:
-                              return "每周"
-                            case 3:
-                              return "每月"
-                            case 4:
-                              return "每年"
-                          }
+                          return "每日"
+                        case 4:
+                          return "每周"
+                        case 5:
+                          return "每月"
+                        case 6:
+                          return "每年"
+                        default:
+                          return schedule.repeat_type
                       }
                   }()}
                 </Col>
@@ -64,20 +69,6 @@ const ScheduleContainer = React.createClass({
             )
           }
       }];
-      const rowSelection = {
-        onSelect: (record, selected, selectedRows) => {
-          if(selected){
-            this.props.onCompleteQuest(record.id);
-          } else {
-            this.props.onCancelCompleteQuest(record.id);
-          }
-        },
-        getCheckboxProps: (record) => {
-          return {
-            defaultChecked: record.state === 1, // 配置默认勾选的列
-          }
-        }
-      };
       return (
         <div>
           <Row type="flex" justify="center">
@@ -96,7 +87,6 @@ const ScheduleContainer = React.createClass({
               <Col span="23">
                   <Table className="dataGrid"
                       style={{overflowY:"auto",height:this.state.dataGridHeight,}}
-                      rowSelection={rowSelection}
                       columns={columns}
                       dataSource={this.props.schedules}
                       rowKey={(recode, index) => recode.id}

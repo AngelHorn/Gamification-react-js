@@ -40,9 +40,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onFetchSchedules: () => dispatch(actions.fetchSchedules()),
-    onFetchAddQuest: (text,type,options) => dispatch(actions.fetchAddQuest(text,type,options)),
     onPutCurrentNavType: () => dispatch(actions.putCurrentNavType()),
+    onFetchSchedules: () => dispatch(actions.fetchSchedules()),
+    onFetchAddSchedule: (formData) => dispatch(actions.fetchAddSchedule(formData)),
+    onFetchAddQuest: (text,type,options) => dispatch(actions.fetchAddQuest(text,type,options)),
     onFetchQuests: () => dispatch(actions.fetchQuests())
   }
 }
