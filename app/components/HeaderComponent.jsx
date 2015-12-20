@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react'
 import { Menu, Icon, Switch } from 'antd';
-import {Form, Input, Datepicker, Row, Col, Button} from "antd";
+import {Form, Input, Datepicker, Row, Col, Button, Progress, Tag} from "antd";
 import QuestModalComponent from './QuestModalComponent.jsx';
 import ScheduleModalComponent from './ScheduleModalComponent.jsx';
 const SubMenu = Menu.SubMenu;
 const FormItem = Form.Item;
 const InputGroup = Input.Group;
+const ProgressLine = Progress.Line;
 
 const HeaderComponent = React.createClass({
     getInitialState() {
@@ -30,7 +31,7 @@ const HeaderComponent = React.createClass({
                                 src="https://t.alipayobjects.com/images/rmsweb/T1B9hfXcdvXXXXXXXX.svg"/>
                         </a>
                     </Col>
-                    <Col span="16">
+                    <Col span="9">
                         <Menu
                             onClick={this.handleClick}
                             selectedKeys={[this.state.current]}
@@ -39,25 +40,8 @@ const HeaderComponent = React.createClass({
                             <Menu.Item key="mail">
                                 <QuestModalComponent {...this.props}/>
                             </Menu.Item>
-
                             <Menu.Item key="app">
                                 <ScheduleModalComponent {...this.props}/>
-                            </Menu.Item>
-                            <SubMenu title={
-                                    <span>
-                                        <Icon type="setting" />
-                                        导航 - 子菜单
-                                    </span>
-                                }>
-                                <Menu.Item key="setting:1">选项1</Menu.Item>
-                                <Menu.Item key="setting:2">选项2</Menu.Item>
-                                <Menu.Item key="setting:3">选项3</Menu.Item>
-                                <Menu.Item key="setting:4">选项4</Menu.Item>
-                            </SubMenu>
-                            <Menu.Item key="alipay">
-                                <a href="http://www.alipay.com/" target="_blank">
-                                    导航四 - 链接
-                                </a>
                             </Menu.Item>
                             <Menu.Item>
                                 <Row type="flex">
@@ -71,7 +55,30 @@ const HeaderComponent = React.createClass({
                             </Menu.Item>
                         </Menu>
                     </Col>
-                    <Col span="4">
+                    <Col span="11">
+                      <Row >
+                        <Col span="2" type="flex" justify="end">
+                            <Tag color="green" style={{fontSize:"12px"}}>
+                              Lv.{parseInt(this.props.current.roleInfo.exp / 1000) + 1}
+                            </Tag>
+                        </Col>
+                        <Col span="20">
+                          <ProgressLine
+                            percent={this.props.current.roleInfo.exp / 1000 * 100}
+                            format="${percent}%"
+                            status="active" />
+                        </Col>
+                      </Row>
+                        <Row type="flex" justify="center">
+                          <Col>
+                            <Tag color="yellow" style={{fontSize:"12px"}}>
+                              当日获得：{this.props.current.roleInfo.dayIncome}
+                            </Tag>
+                            <Tag color="red" style={{fontSize:"12px"}}>
+                              当前存款：{this.props.current.roleInfo.balance}
+                            </Tag>
+                          </Col>
+                        </Row>
                     </Col>
                 </Row>
             </header>

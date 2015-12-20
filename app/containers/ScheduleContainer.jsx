@@ -365,7 +365,7 @@ const ScheduleContainer = React.createClass({
 })
 
 function mapStateToProps(state) {
-    let schedules = state.schedules;
+    let schedules = state.schedules.filter((schedule) => schedule.state === 0);
   return {
       schedules,
   }

@@ -95,7 +95,11 @@ const LeftNavComponentLengthSpan = React.createClass({
         let navCount;
         switch (parseInt(key)) {
             case 4:
-                navCount = this.props.schedules;
+                navCount = this.props.schedules.filter((schedule) => {
+                    if(schedule.state === 0){
+                        return schedule
+                    }
+                });;
                 break;
             case 5:
                 navCount = this.props.quests.filter((quest) => {
