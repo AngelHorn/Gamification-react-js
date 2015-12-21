@@ -34,7 +34,8 @@ const RootComponent = React.createClass({
 
 function mapStateToProps(state) {
   return {
-      current: state.current
+      current: state.current,
+      quests: state.quests
   }
 }
 

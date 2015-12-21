@@ -10,17 +10,51 @@ const ProgressLine = Progress.Line;
 
 const HeaderComponent = React.createClass({
     getInitialState() {
+      let balance = 0;
+      let dayIncome = 0;
+      let exp = 0;
       return {
-        date: ''
+        balance,
+        dayIncome,
+        exp
       };
     },
-    handleChange(value) {
-      message.info('您选择的日期是: ' + value.toString());
-      this.setState({
-        date: value
-      });
+    handleQuestsChange(){
+      let today_at;
+      today_at = (new Date()).getFullYear() + "-"
+      today_at += (new Date()).getMonth() + 1 + "-"
+      today_at += (new Date()).getDate()
+      let balance = 0;
+      let dayIncome = 0;
+      let exp = 0;
+      this.props.quests.forEach((value) => {
+        if(value.state === 1){
+          exp += value.exp
+          balance += value.gold
+          if(value.done_at === today_at){
+            dayIncome += value.gold
+          }
+        }
+      })
     },
     render() {
+      let today_at;
+      today_at = (new Date()).getFullYear() + "-"
+      today_at += (new Date()).getMonth() + 1 + "-"
+      today_at += (new Date()).getDate()
+      let balance = 0;
+      let dayIncome = 0;
+      let exp = 0;
+      console.log(today_at);
+      this.props.quests.forEach((value) => {
+        if(value.state === 1){
+          exp += value.exp
+          balance += value.gold
+          if(value.done_at === today_at){
+            dayIncome += value.gold
+          }
+        }
+      });
         return (
             <header>
                 <Row>
@@ -32,10 +66,7 @@ const HeaderComponent = React.createClass({
                         </a>
                     </Col>
                     <Col span="9">
-                        <Menu
-                            onClick={this.handleClick}
-                            selectedKeys={[this.state.current]}
-                            theme=""
+                        <Menu selectedKeys={[]}
                             mode="horizontal">
                             <Menu.Item key="mail">
                                 <QuestModalComponent {...this.props}/>
@@ -59,12 +90,12 @@ const HeaderComponent = React.createClass({
                       <Row >
                         <Col span="2" type="flex" justify="end">
                             <Tag color="green" style={{fontSize:"12px"}}>
-                              Lv.{parseInt(this.props.current.roleInfo.exp / 1000) + 1}
+                              Lv.{parseInt(exp / 1000) + 1}
                             </Tag>
                         </Col>
                         <Col span="20">
                           <ProgressLine
-                            percent={this.props.current.roleInfo.exp / 1000 * 100}
+                            percent={parseInt(exp / 1000 * 100)}
                             format="${percent}%"
                             status="active" />
                         </Col>
@@ -72,17 +103,16 @@ const HeaderComponent = React.createClass({
                         <Row type="flex" justify="center">
                           <Col>
                             <Tag color="yellow" style={{fontSize:"12px"}}>
-                              当日获得：{this.props.current.roleInfo.dayIncome}
+                              当日获得：{dayIncome}
                             </Tag>
                             <Tag color="red" style={{fontSize:"12px"}}>
-                              当前存款：{this.props.current.roleInfo.balance}
+                              当前存款：{balance}
                             </Tag>
                           </Col>
                         </Row>
                     </Col>
                 </Row>
             </header>
-
         )
     }
 })

@@ -25,7 +25,7 @@ export function cancelCompleteQuest(id) {
     .end(function(err, res){
       requestCodeHandler(res.body.code, () => {
         let newQuest = res.body.data;
-        dispatch({type: actionTypes.CANCEL_COMPLETE_QUEST,id})
+        dispatch({type: actionTypes.CANCEL_COMPLETE_QUEST,newQuest})
       });
     });
   }
@@ -40,7 +40,7 @@ export function completeQuest(id) {
     .end(function(err, res){
       requestCodeHandler(res.body.code, () => {
         let newQuest = res.body.data;
-        dispatch({type: actionTypes.COMPLETE_QUEST,id})
+        dispatch({type: actionTypes.COMPLETE_QUEST,newQuest})
       });
     });
   }
