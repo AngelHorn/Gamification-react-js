@@ -62,6 +62,9 @@ class Root extends React.Component {
                           <Route
                               path="tree"
                               components={ContainersList.TreeContainer}/>
+                          <Route
+                              path="chart"
+                              components={ContainersList.ChartContainer}/>
                           <IndexRedirect to="today"/>
                       </Route>
                   </Router>

@@ -34,6 +34,9 @@ const LeftNavComponent = React.createClass({
             case 6:
             hash = "trash"
             break;
+            case 11:
+            hash = "chart"
+            break;
             case 1:
             default:
             hash = "today"
@@ -83,8 +86,10 @@ const LeftNavComponent = React.createClass({
 
                 <Menu.Item key="9"><Icon type="smile" />奖励池</Menu.Item>
                 <Menu.Item key="10"><Icon type="shopping-cart" />道具池</Menu.Item>
-                <Menu.Item key="11"><Icon type="bar-chart" />数据统计</Menu.Item>
-
+                <Menu.Item key="chart">
+                    <Link to="/chart"><p><Icon type="bar-chart" />数据统计
+                        </p></Link>
+                </Menu.Item>
             </Menu>
         )
     }

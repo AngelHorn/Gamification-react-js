@@ -44,6 +44,9 @@ function navTypeMapping(navType){
       case "trash":
           newState = 6;
           break;
+      case "chart":
+          newState = 11;
+          break;
       case "today":
       default:
           newState = 1

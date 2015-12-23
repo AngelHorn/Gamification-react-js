@@ -45,7 +45,6 @@ const HeaderComponent = React.createClass({
       let balance = 0;
       let dayIncome = 0;
       let exp = 0;
-      console.log(today_at);
       this.props.quests.forEach((value) => {
         if(value.state === 1){
           exp += value.exp
