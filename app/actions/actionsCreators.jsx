@@ -15,11 +15,9 @@ export function fetchItems(){
       return request
       .get('http://gamification.0x00000000.me/items')
       .end(function(err, res){
-          // let shit = normalize(fuck, {data: arrayOf(new Schema('data'))})
-          // let data = normalize(fuck, arrayOf(new Schema('data')))
           requestCodeHandler(res.body.code, () => {
             let items = res.body.data;
-            dispatch({type: actionTypes.RECEIVE_SCHEDULES, items})
+            dispatch({type: actionTypes.RECEIVE_ITEMS, items})
           });
       });
     }
