@@ -1,13 +1,7 @@
 import * as actionTypes from '../actions/actionTypes.jsx';
 
-let navType = navTypeMapping(window.location.hash.replace('#/','').split("?")[0]);
+let navType = navTypeMapping();
 let defaultState = {
-    roleInfo:{
-      dayIncome: 0,
-      balance: 0,
-      level: 1,
-      exp: 0
-    },
     navType
 }
 
@@ -15,7 +9,7 @@ function current(state = defaultState, action) {
   let newState;
   switch (action.type) {
       case actionTypes.PUT_CURRENT_NAV_TYPE:
-          let navType = navTypeMapping(window.location.hash.replace('#/','').split("?")[0]);
+          let navType = navTypeMapping();
           return Object.assign({}, state, {navType})
       default:
       return state;
@@ -23,8 +17,8 @@ function current(state = defaultState, action) {
 }
 
 /*****lib*****/
-function navTypeMapping(navType){
-  let newState
+function navTypeMapping(){
+  let newState, navType = window.location.hash.replace('#/','').split("?")[0];
   switch (navType) {
       case "inbox":
           newState = 0

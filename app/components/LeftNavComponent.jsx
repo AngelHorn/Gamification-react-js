@@ -5,77 +5,39 @@ import { Menu, Icon, Switch, Tag } from 'antd';
 const SubMenu = Menu.SubMenu;
 
 const LeftNavComponent = React.createClass({
-    handleClick(e) {
-        //router
-        // console.log('handleClick');
-        // window.location.href = '/#/'+e.key;
-        // this.setState({
-        //   current: e.key
-        // });
-    },
-    handleMapNavType(navType){
-        let hash;
-        switch (this.props.current.navType) {
-            case 0:
-            hash = "inbox"
-            break;
-            case 2:
-            hash = "next"
-            break;
-            case 3:
-            hash = "waiting"
-            break;
-            case 4:
-            hash = "schedule"
-            break;
-            case 5:
-            hash = "done"
-            break;
-            case 6:
-            hash = "trash"
-            break;
-            case 11:
-            hash = "chart"
-            break;
-            case 1:
-            default:
-            hash = "today"
-        }
-        return hash;
-    },
     render () {
         return (
             <Menu
                 style={{width:"auto"}}
                 defaultOpenKeys={[]}
-                selectedKeys={[this.handleMapNavType()]}
+                selectedKeys={[this.props.current.navType.toString()]}
                 mode="inline">
-                <Menu.Item key="inbox">
+                <Menu.Item key="0">
                     <Link to="/inbox"><p><Icon type="inbox" />收集箱
                     <LeftNavComponentLengthSpan navKey="0" quests={this.props.quests}/></p></Link>
                 </Menu.Item>
-                <Menu.Item key="today">
+                <Menu.Item key="1">
                     <Link to="/today"><p><Icon type="play-circle-o" />今日待办
                         <LeftNavComponentLengthSpan navKey="1" quests={this.props.quests}/></p></Link>
                 </Menu.Item>
-                <Menu.Item key="next">
+                <Menu.Item key="2">
                     <Link to="/next"><p><Icon type="star-o" />下一步行动
                         <LeftNavComponentLengthSpan navKey="2" quests={this.props.quests}/></p></Link>
                 </Menu.Item>
-                <Menu.Item key="waiting">
+                <Menu.Item key="3">
                     <Link to="/waiting"><p><Icon type="pause-circle-o" />等待中
                         <LeftNavComponentLengthSpan navKey="3" quests={this.props.quests}/></p></Link>
                 </Menu.Item>
-                <Menu.Item key="schedule">
+                <Menu.Item key="4">
                     <Link to="/schedule"><p><Icon type="calendar" />日程表
                         <LeftNavComponentLengthSpan navKey="4" schedules={this.props.schedules}/></p></Link>
                 </Menu.Item>
                 <Menu.Item disabled={true}/>
-                <Menu.Item key="done">
+                <Menu.Item key="5">
                     <Link to="/done"><p><Icon type="check-circle-o" />已完成
                         <LeftNavComponentLengthSpan navKey="5" quests={this.props.quests}/></p></Link>
                 </Menu.Item>
-                <Menu.Item key="trash">
+                <Menu.Item key="6">
                     <Link to="/trash"><p><Icon type="delete" />回收箱
                         <LeftNavComponentLengthSpan navKey="6" quests={this.props.quests}/></p></Link>
                 </Menu.Item>
@@ -84,12 +46,12 @@ const LeftNavComponent = React.createClass({
                 <Menu.Item key="tree"><Icon type="bars" />任务树</Menu.Item>
                     <Menu.Item disabled={true}/>
 
-                <Menu.Item key="shop">
+                <Menu.Item key="9">
                     <Link to="/shop"><p><Icon type="smile" />奖励池
                         </p></Link>
                 </Menu.Item>
                 <Menu.Item key="10"><Icon type="shopping-cart" />道具池</Menu.Item>
-                <Menu.Item key="chart">
+                <Menu.Item key="11">
                     <Link to="/chart"><p><Icon type="bar-chart" />数据统计
                         </p></Link>
                 </Menu.Item>
