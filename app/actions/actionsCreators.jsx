@@ -9,6 +9,23 @@ export function putCurrentNavType(){
     }
 }
 
+export function fetchItems(){
+    return dispatch => {
+      //dispatch(requestPosts())
+      return request
+      .get('http://gamification.0x00000000.me/items')
+      .end(function(err, res){
+          // let shit = normalize(fuck, {data: arrayOf(new Schema('data'))})
+          // let data = normalize(fuck, arrayOf(new Schema('data')))
+          requestCodeHandler(res.body.code, () => {
+            let items = res.body.data;
+            dispatch({type: actionTypes.RECEIVE_SCHEDULES, items})
+          });
+      });
+    }
+}
+
+
 export function addQuest(newQuest) {
   return {
       type: actionTypes.ADD_QUEST,

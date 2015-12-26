@@ -2,6 +2,16 @@ export default {
     //current
     PUT_CURRENT_NAV_TYPE: "PUT_CURRENT_NAV_TYPE",
 
+
+    //items
+    RECEIVE_ITEMS: "RECEIVE_ITEMS",
+    ADD_ITEM: "ADD_ITEM",
+    EDIT_ITEM: "EDIT_ITEM",
+
+    //bag_items
+    RECEIVE_BAG_ITEMS: "RECEIVE_BAG_ITEMS",
+
+
     //schedules
     RECEIVE_SCHEDULES: "RECEIVE_SCHEDULES",
     ADD_SCHEDULE: "ADD_SCHEDULE",

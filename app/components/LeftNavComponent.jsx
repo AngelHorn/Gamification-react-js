@@ -84,7 +84,10 @@ const LeftNavComponent = React.createClass({
                 <Menu.Item key="tree"><Icon type="bars" />任务树</Menu.Item>
                     <Menu.Item disabled={true}/>
 
-                <Menu.Item key="9"><Icon type="smile" />奖励池</Menu.Item>
+                <Menu.Item key="shop">
+                    <Link to="/shop"><p><Icon type="smile" />奖励池
+                        </p></Link>
+                </Menu.Item>
                 <Menu.Item key="10"><Icon type="shopping-cart" />道具池</Menu.Item>
                 <Menu.Item key="chart">
                     <Link to="/chart"><p><Icon type="bar-chart" />数据统计
