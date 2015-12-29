@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import {connect} from 'react-redux';
 import { Row, Col, Input, Table, Icon} from 'antd';
 import { Modal, Button } from 'antd';
-import { Form, Slider, InputNumber, Select, Datepicker, Timepicker} from 'antd';
+import { Form, Slider, InputNumber, Select, DatePicker } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const OptGroup = Select.OptGroup;
@@ -79,22 +79,12 @@ const ScheduleContainer = React.createClass({
       editModalVisible: false
     });
   },
-  handleStartAtChange(from, value) {
-    this.result = this.result || new Date();
-    if (!value) {
-        this.selectedDate = false;
-    } else {
-        this.result.setFullYear(value.getFullYear());
-        this.result.setMonth(value.getMonth());
-        this.result.setDate(value.getDate());
-        this.selectedDate = true;
-    }
+  handleStartAtChange(value) {
+    let result = value || new Date();
     let start_at = '';
-    if (this.selectedDate) {
-      start_at += this.result.getFullYear() + "-"
-      start_at += this.result.getMonth() + "-"
-      start_at += this.result.getDate()
-    }
+    start_at += result.getFullYear() + "-"
+    start_at += (result.getMonth() + 1) + "-"
+    start_at += result.getDate()
     this.setState({
       formData: {
         ...this.state.formData,
@@ -102,40 +92,19 @@ const ScheduleContainer = React.createClass({
       }
     });
   },
-  handleAlertAtChange(from, value) {
-    this.result = this.result || new Date();
-    if (!value) {
-      if (from === 'date') {
-        this.selectedDate = false;
-      } else {
-        this.selectedTime = false;
-      }
-    } else {
-      if (from === 'date') {
-        this.result.setFullYear(value.getFullYear());
-        this.result.setMonth(value.getMonth());
-        this.result.setDate(value.getDate());
-        this.selectedDate = true;
-      } else {
-        this.result.setHours(value.getHours());
-        this.result.setMinutes(value.getMinutes());
-        this.selectedTime = true;
-      }
-    }
-
+  handleAlertAtChange(value) {
+    let result = value || new Date();
     let alert_at = '';
-    if (this.selectedDate && this.selectedTime) {
-      alert_at += this.result.getFullYear() + "-"
-      alert_at += this.result.getMonth() + "-"
-      alert_at += this.result.getDate() + " "
-      alert_at += this.result.getHours() + ":"
-      alert_at += this.result.getMinutes() + ":00"
-    }
+    alert_at += result.getFullYear() + "-"
+    alert_at += (result.getMonth() + 1) + "-"
+    alert_at += result.getDate() + " "
+    alert_at += result.getHours() + ":"
+    alert_at += result.getMinutes() + ":00"
     this.setState({
       formData: {...this.state.formData,
         alert_at
       }
-    });
+    })
   },
     render () {
       const columns = [{
@@ -306,13 +275,13 @@ const ScheduleContainer = React.createClass({
                     wrapperCol={{span: 16}}>
                     <div className="row">
                       <div className="col-6">
-                        <Datepicker
-                          defaultValue={this.state.formData.start_at}
+                        <DatePicker
+                          value={this.state.formData.start_at || null}
                           disabledDate={function(current, value) {
                             return current && current.getTime() < Date.now();
                           }}
                           format="yyyy-MM-dd"
-                          onChange={this.handleStartAtChange.bind(null, 'date')} />
+                          onChange={(value) => this.handleStartAtChange(value)} />
                       </div>
                     </div>
                   </FormItem>
@@ -322,17 +291,15 @@ const ScheduleContainer = React.createClass({
                     wrapperCol={{span: 16}}>
                     <div className="row">
                       <div className="col-6">
-                        <Datepicker
-                          disabled
-                          format="yyyy/MM/dd"
-                          onChange={this.handleAlertAtChange.bind(null, 'date')} />
+                        <DatePicker
+                          value={this.state.formData.alert_at || null}
+                          showTime
+                          format="yyyy-MM-dd HH:mm"
+                          onChange={(value) => this.handleAlertAtChange(value)}
+                           />
                       </div>
                       <div className="col-6">
-                        <Timepicker
-                          disabled
-                          format="HH:mm"
-                          minuteOptions={[0, 15, 30 ,45]}
-                          onChange={this.handleAlertAtChange.bind(null, 'time')} />
+
                       </div>
                     </div>
                   </FormItem>

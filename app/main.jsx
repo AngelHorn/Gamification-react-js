@@ -4,6 +4,7 @@ import {createStore, compose, combineReducers, applyMiddleware} from 'redux';
 import {Provider, connect, dispatch} from 'react-redux';
 import { Router, Route, Link, IndexRedirect } from 'react-router'
 import "babel-polyfill"
+import 'antd/style/index.less'
 
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import {devTools, persistState} from 'redux-devtools';

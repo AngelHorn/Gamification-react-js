@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Table, Checkbox } from 'antd';
 import { Row, Col } from 'antd';
 import { Modal, Button, Icon, ButtonGroup  } from 'antd';
-import { Form, Input, Slider, InputNumber, Select, Datepicker, Timepicker, Tag} from 'antd';
+import { Form, Input, Slider, InputNumber, Select, DatePicker, Tag} from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const OptGroup = Select.OptGroup;
@@ -83,22 +83,12 @@ const DataGridComponent = React.createClass({
         editModalVisible: false
       });
     },
-    handleDeadlineAtChange(from, value) {
-      this.result = this.result || new Date();
-      if (!value) {
-          this.selectedDate = false;
-      } else {
-          this.result.setFullYear(value.getFullYear());
-          this.result.setMonth(value.getMonth());
-          this.result.setDate(value.getDate());
-          this.selectedDate = true;
-      }
+    handleDeadlineAtChange(value) {
+      let result = value || new Date();
       let deadline_at = '';
-      if (this.selectedDate) {
-        deadline_at += this.result.getFullYear() + "-"
-        deadline_at += this.result.getMonth() + "-"
-        deadline_at += this.result.getDate()
-      }
+      deadline_at += result.getFullYear() + "-"
+      deadline_at += (result.getMonth() + 1) + "-"
+      deadline_at += result.getDate()
       this.setState({
         formData: {
           ...this.state.formData,
@@ -106,40 +96,19 @@ const DataGridComponent = React.createClass({
         }
       });
     },
-    handleAlertAtChange(from, value) {
-      this.result = this.result || new Date();
-      if (!value) {
-        if (from === 'date') {
-          this.selectedDate = false;
-        } else {
-          this.selectedTime = false;
-        }
-      } else {
-        if (from === 'date') {
-          this.result.setFullYear(value.getFullYear());
-          this.result.setMonth(value.getMonth());
-          this.result.setDate(value.getDate());
-          this.selectedDate = true;
-        } else {
-          this.result.setHours(value.getHours());
-          this.result.setMinutes(value.getMinutes());
-          this.selectedTime = true;
-        }
-      }
-
+    handleAlertAtChange(value) {
+      let result = value || new Date();
       let alert_at = '';
-      if (this.selectedDate && this.selectedTime) {
-        alert_at += this.result.getFullYear() + "-"
-        alert_at += this.result.getMonth() + "-"
-        alert_at += this.result.getDate() + " "
-        alert_at += this.result.getHours() + ":"
-        alert_at += this.result.getMinutes() + ":00"
-      }
+      alert_at += result.getFullYear() + "-"
+      alert_at += (result.getMonth() + 1) + "-"
+      alert_at += result.getDate() + " "
+      alert_at += result.getHours() + ":"
+      alert_at += result.getMinutes() + ":00"
       this.setState({
         formData: {...this.state.formData,
           alert_at
         }
-      });
+      })
     },
     render () {
       const columns = [{
@@ -302,12 +271,12 @@ const DataGridComponent = React.createClass({
                             labelCol={{span: 2}}
                             wrapperCol={{span: 16}}>
                             <div className="row">
-                                <div className="col-6">
-                                    <Datepicker
-                                        value={this.state.formData.deadline_at || null}
-                                        format="yyyy-MM-dd"
-                                        onChange={this.handleDeadlineAtChange.bind(null, 'date')} />
-                                </div>
+                              <div className="col-6">
+                                <DatePicker
+                                  value={this.state.formData.deadline_at || null}
+                                  format="yyyy-MM-dd"
+                                  onChange={(value) => this.handleDeadlineAtChange(value)} />
+                              </div>
                             </div>
                         </FormItem>
                         <FormItem
@@ -315,24 +284,13 @@ const DataGridComponent = React.createClass({
                             labelCol={{span: 2}}
                             wrapperCol={{span: 16}}>
                             <div className="row">
-                                <div className="col-6">
-                                    <Datepicker
-                                        value={
-                                          this.state.formData.alert_at ?
-                                          this.state.formData.alert_at.split(" ")[0] : null
-                                        }
-                                        format="yyyy-MM-dd"
-                                        onChange={this.handleAlertAtChange.bind(null, 'date')} />
-                                </div>
-                                <div className="col-6">
-                                    <Timepicker
-                                        defaultValue={
-                                          this.state.formData.alert_at ?
-                                          this.state.formData.alert_at.split(" ")[1] : null
-                                        }
-                                        format="HH:mm:ss"
-                                        minuteOptions={[0, 15, 30 ,45]}
-                                        onChange={this.handleAlertAtChange.bind(null, 'time')} />
+                              <div className="col-6">
+                                <DatePicker
+                                  value={this.state.formData.alert_at || null}
+                                  showTime
+                                  format="yyyy-MM-dd HH:mm"
+                                  onChange={(value) => this.handleAlertAtChange(value)}
+                                   />
                                 </div>
                             </div>
                         </FormItem>
