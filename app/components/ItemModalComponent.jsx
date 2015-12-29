@@ -1,21 +1,18 @@
 import React, { PropTypes } from 'react'
 import { Modal, Button, Icon, Upload } from 'antd';
-// import { Form, Input, Col, Slider, InputNumber, Select, Datepicker, Timepicker} from 'antd';
-
+import { Form, Input, Col, Slider, InputNumber, Select, Datepicker, Timepicker} from 'antd';
+const FormItem = Form.Item;
 
 const ItemModalComponent = React.createClass({
+  mixins: [Form.ValueMixin],
   getInitialState() {
     return {
-        addButtonState: 'disabled',
         visible: false,
         loading: false,
         formData: {
-          text: '',
-          note: '',
-          exp: 0,
-          gold: 0,
-          alert_at: '',
-          deadline_at: ''
+          name: '',
+          price: 0,
+          img: '',
         }
      };
   },
@@ -29,22 +26,16 @@ const ItemModalComponent = React.createClass({
   handleOk() {
     let formData = this.state.formData;
     let options = {};
-    if(formData.note){
-      options.note = formData.note;
+    if(formData.name){
+      options.name = formData.name;
     }
-    if(formData.exp){
-      options.exp = formData.exp;
+    if(formData.price){
+      options.price = formData.price;
     }
-    if(formData.gold){
-      options.gold = formData.gold;
+    if(formData.img){
+      options.img = formData.img;
     }
-    if(formData.alert_at){
-      options.alert_at = formData.alert_at;
-    }
-    if(formData.deadline_at){
-      options.deadline_at = formData.deadline_at;
-    }
-    this.props.onFetchAddQuest(formData.text,formData.type,options);
+    this.props.onFetchAddItem(options);
     this.setState({ loading: true });
     setTimeout(() => {
       this.setState({ loading: false, visible: false });
@@ -55,16 +46,23 @@ const ItemModalComponent = React.createClass({
       visible: false
     });
   },
+  handleUploadImgDone(img) {
+    this.setState({
+      formData: {...this.state.formData,
+        img
+      }
+    });
+  },
   render() {
-    const fuck_props = {
+    const uploadProps = {
       name: "item_img",
       action: 'http://gamification.0x00000000.me/upload',
-      onChange(info) {
+      onChange: (info) => {
         if (info.file.status !== 'uploading') {
-          console.log(info.file, info.fileList);
+          // console.log(info.file, info.fileList);
         }
         if (info.file.status === 'done') {
-          console.log(info.file.response.data);
+          this.handleUploadImgDone(info.file.response.data)
         } else if (info.file.status === 'error') {
         }
       }
@@ -84,14 +82,43 @@ const ItemModalComponent = React.createClass({
           confirmLoading={this.state.loading}
           onOk={this.handleOk}
           onCancel={this.handleCancel}>
-          <Upload {...fuck_props}>
-            <Button type="ghost">
-              <Icon type="upload" /> 点击上传
-              </Button>
-            </Upload>
+          <Form horizontal>
+            <FormItem>
+              <Upload {...uploadProps}>
+                <Button type="ghost">
+                  <Icon type="upload"/> 点击上传
+                  </Button>
+                </Upload>
+              </FormItem>
+              <FormItem>
+                <Input
+                  type="text"
+                  placeholder="物品名称"
+                  name="name"
+                  value={this.state.formData.name}
+                  onChange={this.setValue.bind(this, 'name')} />
+              </FormItem>
+              <FormItem>
+                <Input
+                  type="text"
+                  placeholder="物品价格"
+                  name="price"
+                  value={this.state.formData.price}
+                  onChange={this.setValue.bind(this, 'price')} />
+              </FormItem>
+              <FormItem>
+                <Input
+                  disabled
+                  type="text"
+                  placeholder="图片名称"
+                  name="img"
+                  value={this.state.formData.img}
+                  onChange={this.setValue.bind(this, 'img')} />
+              </FormItem>
+            </Form>
           </Modal>
         </div>
-        )
+      )
   }
 })
 export default ItemModalComponent

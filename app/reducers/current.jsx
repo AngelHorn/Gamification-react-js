@@ -4,6 +4,7 @@ let navType = navTypeMapping();
 let defaultState = {
     navType
 }
+//可能再存一个当前服务器地址的url 来代替现在写字符串的形式
 
 function current(state = defaultState, action) {
   let newState;

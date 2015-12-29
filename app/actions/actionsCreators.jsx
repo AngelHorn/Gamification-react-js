@@ -10,19 +10,33 @@ export function putCurrentNavType(){
 }
 
 export function fetchItems(){
-    return dispatch => {
-      //dispatch(requestPosts())
-      return request
-      .get('http://gamification.0x00000000.me/items')
-      .end(function(err, res){
-          requestCodeHandler(res.body.code, () => {
-            let items = res.body.data;
-            dispatch({type: actionTypes.RECEIVE_ITEMS, items})
-          });
+  return dispatch => {
+    //dispatch(requestPosts())
+    return request
+    .get('http://gamification.0x00000000.me/items')
+    .end(function(err, res){
+      requestCodeHandler(res.body.code, () => {
+        let items = res.body.data;
+        dispatch({type: actionTypes.RECEIVE_ITEMS, items})
       });
-    }
+    });
+  }
 }
 
+export function fetchAddItem(item) {
+  return (dispatch) => {
+    return request
+    .post('http://gamification.0x00000000.me/items')
+    .type('form')
+    .send(item)
+    .end(function(err, res){
+      requestCodeHandler(res.body.code, () => {
+        let newItem = res.body.data;
+        dispatch({ type:actionTypes.ADD_ITEM, newItem })
+      });
+    });
+  }
+}
 
 export function addQuest(newQuest) {
   return {
