@@ -45,6 +45,7 @@ const HeaderComponent = React.createClass({
       let balance = 0;
       let dayIncome = 0;
       let exp = 0;
+      let cost = 0;
       this.props.quests.forEach((value) => {
         if(value.state === 1){
           exp += value.exp
@@ -52,6 +53,12 @@ const HeaderComponent = React.createClass({
           if(value.done_at === today_at){
             dayIncome += value.gold
           }
+        }
+      });
+      this.props.bag_items.forEach((bag_item) => {
+        let item = this.props.items.find((item) => item.id === bag_item.item_id)
+        if(item){
+          cost += item.price
         }
       });
         return (
@@ -105,7 +112,7 @@ const HeaderComponent = React.createClass({
                               当日获得：{dayIncome}
                             </Tag>
                             <Tag color="red" style={{fontSize:"12px"}}>
-                              当前存款：{balance}
+                              当前存款：{balance - cost}
                             </Tag>
                           </Col>
                         </Row>

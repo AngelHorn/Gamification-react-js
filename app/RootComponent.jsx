@@ -37,6 +37,8 @@ const RootComponent = React.createClass({
 function mapStateToProps(state) {
   return {
       current: state.current,
+      bag_items: state.bag_items,
+      items: state.items,
       quests: state.quests
   }
 }
