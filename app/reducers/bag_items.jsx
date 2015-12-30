@@ -1,24 +1,14 @@
 import * as actionTypes from '../actions/actionTypes.jsx';
 
-let navType = navTypeMapping(window.location.hash.replace('#/','').split("?")[0]);
-let defaultState = {
-    roleInfo:{
-      dayIncome: 0,
-      balance: 0,
-      level: 1,
-      exp: 0
-    },
-    navType
-}
-
-function bag_items(state = defaultState, action) {
+function bag_items(state = [], action) {
   let newState;
   switch (action.type) {
-      case actionTypes.PUT_CURRENT_NAV_TYPE:
-          let navType = navTypeMapping(window.location.hash.replace('#/','').split("?")[0]);
-          return Object.assign({}, state, {navType})
+      case actionTypes.RECEIVE_BAG_ITEMS:
+        return action.bag_items.reverse();
+      case actionTypes.ADD_BAG_ITEM:
+        return [ action.newBagItem, ...state ];
       default:
-      return state;
+        return state;
   }
 }
 

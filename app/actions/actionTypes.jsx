@@ -10,7 +10,7 @@ export default {
 
     //bag_items
     RECEIVE_BAG_ITEMS: "RECEIVE_BAG_ITEMS",
-
+    ADD_BAG_ITEM: "ADD_BAG_ITEM",
 
     //schedules
     RECEIVE_SCHEDULES: "RECEIVE_SCHEDULES",

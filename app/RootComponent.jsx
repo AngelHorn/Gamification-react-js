@@ -13,6 +13,7 @@ const RootComponent = React.createClass({
         this.props.onFetchItems();
         this.props.onFetchQuests();
         this.props.onFetchSchedules();
+        this.props.onFetchBagItems();
         window.onhashchange = () => this.props.onPutCurrentNavType();
         return {};
     },
@@ -43,6 +44,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     onPutCurrentNavType: () => dispatch(actions.putCurrentNavType()),
+    onFetchBagItems: () => dispatch(actions.fetchBagItems()),
     onFetchItems: () => dispatch(actions.fetchItems()),
     onFetchSchedules: () => dispatch(actions.fetchSchedules()),
     onFetchAddSchedule: (formData) => dispatch(actions.fetchAddSchedule(formData)),

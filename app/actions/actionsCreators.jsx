@@ -38,6 +38,35 @@ export function fetchAddItem(item) {
   }
 }
 
+export function fetchBagItems(){
+  return dispatch => {
+    //dispatch(requestPosts())
+    return request
+    .get('http://gamification.0x00000000.me/bag_items')
+    .end(function(err, res){
+      requestCodeHandler(res.body.code, () => {
+        let bag_items = res.body.data;
+        dispatch({type: actionTypes.RECEIVE_BAG_ITEMS, bag_items})
+      });
+    });
+  }
+}
+
+export function fetchAddBagItem(id) {
+  return (dispatch) => {
+    return request
+    .post('http://gamification.0x00000000.me/bag_items')
+    .type('form')
+    .send({ id })
+    .end(function(err, res){
+      requestCodeHandler(res.body.code, () => {
+        let newBagItem = res.body.data;
+        dispatch({ type: actionTypes.ADD_BAG_ITEM, newBagItem })
+      });
+    });
+  }
+}
+
 export function addQuest(newQuest) {
   return {
       type: actionTypes.ADD_QUEST,

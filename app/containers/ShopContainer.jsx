@@ -3,11 +3,10 @@ import {connect} from 'react-redux';
 import * as actions from '../actions/actionsCreators.jsx';
 import ItemModalComponent from '../components/ItemModalComponent.jsx';
 
-import { Row, Col, Tabs, Icon, Button, Menu, DropdownButton, Collapse ,Tag } from 'antd';
+import { Row, Col, Tabs, Icon, Button, Menu, DropdownButton, Collapse, Tag, Popconfirm, message  } from 'antd';
 const TabPane = Tabs.TabPane;
 const Panel = Collapse.Panel;
 const ButtonGroup = Button.Group;
-
 
 const ShopContainer = React.createClass({
     render () {
@@ -36,10 +35,15 @@ const ShopContainer = React.createClass({
                               <Button type="ghost">
                                 $ {item.price}
                               </Button>
-                              <Button type="primary">
-                                <Icon type="pay-circle-o" />
-                                购买
-                              </Button>
+                              <Popconfirm
+                                title="确定购买吗？"
+                                onConfirm={ () => this.props.onFetchAddBagItem(item.id) }
+                                onCancel={ () =>  {} }>
+                                <Button type="primary">
+                                  <Icon type="pay-circle-o" />
+                                  购买
+                                </Button>
+                              </Popconfirm>
                             </ButtonGroup>
                           </Row>
                         </Panel>
@@ -82,6 +86,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    onFetchAddBagItem: (item_id) => dispatch( actions.fetchAddBagItem(item_id) ),
     onFetchAddItem: (item) => dispatch( actions.fetchAddItem(item) ),
   }
 }
