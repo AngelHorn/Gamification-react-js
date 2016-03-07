@@ -15,6 +15,7 @@
     "babel-loader": "^5.3.2",
     "babel-runtime": "^5.8.25",
     "css-loader": "^0.18.0",
+    "dateformat": "^1.0.12",
     "eslint": "^1.1.0",
     "eslint-loader": "^1.0.0",
     "eslint-plugin-react": "^3.2.2",

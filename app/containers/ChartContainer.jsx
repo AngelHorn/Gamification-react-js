@@ -2,17 +2,19 @@ import React, { PropTypes } from 'react'
 import {connect} from 'react-redux';
 import * as actions from '../actions/actionsCreators.jsx';
 import chartjs from "rc-chartjs"
+import dateFormat from 'dateformat';
+
 const LineChart = chartjs.Line;
 
 const ChartContainer = React.createClass({
     handleChartData(){
       let data = new Array(30).fill(0), labels = [], date_at = Date.now();
       for (let i = 0; i < 30 ; i++){
-        labels.push(
+        labels.push(dateFormat(
           new Date(date_at - (i * 86400000)).getFullYear() + "-" +
           (new Date(date_at - (i * 86400000)).getMonth() + 1) + "-" +
           new Date(date_at - (i * 86400000)).getDate()
-        )
+        ,'yyyy-mm-dd'))
       }
       labels.reverse();
 
