@@ -163,6 +163,19 @@ export function fetchEditQuest(quest) {
   }
 }
 
+export function fetchDeleteQuest(quest) {
+  return (dispatch) => {
+    return request
+    .del('http://gamification.0x00000000.me/quests/' + quest.id)
+    .end(function(err, res){
+      requestCodeHandler(res.body.code, () => {
+        let newQuest = res.body.data;
+        dispatch({type: actionTypes.DELETE_QUEST, newQuest})
+      });
+    });
+  }
+}
+
 export function fetchSchedules() {
   return dispatch => {
     //dispatch(requestPosts())

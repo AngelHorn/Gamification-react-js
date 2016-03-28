@@ -24,6 +24,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     onFetchEditQuest: (quest) => dispatch(actions.fetchEditQuest(quest)),
+    onFetchDeleteQuest: (quest) => dispatch(actions.fetchDeleteQuest(quest)),
     onFetchAddQuest: (text,type) => dispatch(actions.fetchAddQuest(text,type)),
     onCompleteQuest: (id) => dispatch(actions.completeQuest(id))
   }

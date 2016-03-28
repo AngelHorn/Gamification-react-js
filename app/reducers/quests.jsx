@@ -11,6 +11,13 @@ function quests(state = [], action) {
         Object.assign({}, state[questIndex], action.newQuest),
         ...state.slice(questIndex + 1)
       ];
+    case actionTypes.DELETE_QUEST:
+      questIndex = state.findIndex((quest) => quest.id === action.newQuest.id);
+      return [
+        ...state.slice(0, questIndex),
+        Object.assign({}, state[questIndex], action.newQuest),
+        ...state.slice(questIndex + 1)
+      ];
     case actionTypes.COMPLETE_QUEST:
       questIndex = state.findIndex((quest) => quest.id === action.newQuest.id);
       return [

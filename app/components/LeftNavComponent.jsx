@@ -78,6 +78,13 @@ const LeftNavComponentLengthSpan = React.createClass({
                     }
                 });
                 break;
+            case 6:
+                navCount = this.props.quests.filter((quest) => {
+                    if(quest.state === 4){
+                      return quest
+                    }
+                });
+                break;
             default:
                 navCount = this.props.quests.filter((quest) => {
                     if(quest.type === parseInt(key) && quest.state === 0){

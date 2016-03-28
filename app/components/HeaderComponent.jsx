@@ -3,6 +3,7 @@ import { Menu, Icon, Switch } from 'antd';
 import {Form, Input, Datepicker, Row, Col, Button, Progress, Tag} from "antd";
 import QuestModalComponent from './QuestModalComponent.jsx';
 import ScheduleModalComponent from './ScheduleModalComponent.jsx';
+import dateFormat from 'dateformat';
 const SubMenu = Menu.SubMenu;
 const FormItem = Form.Item;
 const InputGroup = Input.Group;
@@ -21,9 +22,7 @@ const HeaderComponent = React.createClass({
     },
     handleQuestsChange(){
       let today_at;
-      today_at = (new Date()).getFullYear() + "-"
-      today_at += (new Date()).getMonth() + 1 + "-"
-      today_at += (new Date()).getDate()
+      today_at = dateFormat(new Date(),'yyyy-mm-dd');
       let balance = 0;
       let dayIncome = 0;
       let exp = 0;
@@ -39,13 +38,12 @@ const HeaderComponent = React.createClass({
     },
     render() {
       let today_at;
-      today_at = (new Date()).getFullYear() + "-"
-      today_at += (new Date()).getMonth() + 1 + "-"
-      today_at += (new Date()).getDate()
+      today_at = dateFormat(new Date(),'yyyy-mm-dd');
       let balance = 0;
       let dayIncome = 0;
       let exp = 0;
       let cost = 0;
+
       this.props.quests.forEach((value) => {
         if(value.state === 1){
           exp += value.exp

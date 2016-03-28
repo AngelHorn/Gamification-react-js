@@ -4,6 +4,7 @@ import { Table, Checkbox } from 'antd';
 import { Row, Col } from 'antd';
 import { Modal, Button, Icon, ButtonGroup  } from 'antd';
 import { Form, Input, Slider, InputNumber, Select, DatePicker, Tag} from 'antd';
+import QuestMenuComponent from './QuestMenuComponent.jsx';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const OptGroup = Select.OptGroup;
@@ -130,6 +131,9 @@ const DataGridComponent = React.createClass({
                 </Col>
                 <Col span="2" style={{color:"#FF6100"}}>
                   $ {quest.gold}
+                </Col>
+                <Col span="2">
+                  <QuestMenuComponent onFetchDeleteQuest={this.props.onFetchDeleteQuest} quest={quest}/>
                 </Col>
               </Row>
             )
