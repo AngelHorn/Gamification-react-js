@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react';
+import {connect} from 'react-redux';
+import * as actions from '../actions/actionsCreators.jsx';
 import d3 from 'd3';
 
 
@@ -116,9 +118,8 @@ const TreeContainer = React.createClass({
         var treeMap = {name: "Root", children: tree};
         return treeMap;
     }
-      d3.json('//gamification.0x00000000.me/quests/tree', function (data) {
-          renderMap(arrayToTreeMap(data['data']));
-      });
+    // console.log(this.props.quests);
+    renderMap(arrayToTreeMap(this.props.quests));
   },
     render () {
       return (
@@ -129,4 +130,21 @@ const TreeContainer = React.createClass({
     }
 })
 
-export default TreeContainer
+
+function mapStateToProps(state) {
+  let quests = state.quests;
+  return {
+      quests,
+      current: state.current
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onFetchEditQuest: (quest) => dispatch(actions.fetchEditQuest(quest)),
+    onFetchAddQuest: (text,type) => dispatch(actions.fetchAddQuest(text,type)),
+    onCompleteQuest: (id) => dispatch(actions.completeQuest(id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TreeContainer)
