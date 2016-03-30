@@ -43,7 +43,9 @@ const LeftNavComponent = React.createClass({
                 </Menu.Item>
                     <Menu.Item disabled={true}/>
 
-                <Menu.Item key="tree"><Icon type="bars" />任务树</Menu.Item>
+                <Menu.Item key="7">
+                      <Link to="/tree"><p><Icon type="bars" />任务树</p></Link>
+                </Menu.Item>
                     <Menu.Item disabled={true}/>
 
                 <Menu.Item key="9">

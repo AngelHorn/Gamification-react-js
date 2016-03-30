@@ -39,6 +39,9 @@ function navTypeMapping(){
       case "trash":
           newState = 6;
           break;
+      case "tree":
+          newState = 7;
+          break;
       case "shop":
           newState = 9;
           break;
