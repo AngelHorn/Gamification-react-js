@@ -78,14 +78,6 @@ const TreeContainer = React.createClass({
             .style("opacity", function(d) { return kx * d.dx > d.w ? 1 : 0; });
     }
 
-    function size(d) {
-        return d.size;
-    }
-
-    function count(d) {
-        return 1;
-    }
-
     function arrayToTreeMap(menus) {
         var id = 0,level = 0;
         var menu_objects = [],tree = [],not_root_menu = [];
@@ -95,6 +87,7 @@ const TreeContainer = React.createClass({
                 menu: menu,
                 children: []
             }
+            menu_object['size'] = 1;
             var id = menu['id'];
             var level = menu['father_id'];
             menu_objects[id] = menu_object;
@@ -109,7 +102,7 @@ const TreeContainer = React.createClass({
             var menu = menu_object['menu'];
             var id = menu['id'];
             var level = menu['father_id'];
-            menu_object['size'] = 100;
+            menu_object['size'] = 1;
             if (typeof menu_objects['size'] != 'undefined') {
                 delete(menu_objects['size']);
             }
