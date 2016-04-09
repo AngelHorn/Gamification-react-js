@@ -57,7 +57,7 @@ const ItemModalComponent = React.createClass({
   render() {
     const uploadProps = {
       name: "item_img",
-      action: constants.URL + 'upload',
+      action: constants.SERVER + 'upload',
       onChange: (info) => {
         if (info.file.status !== 'uploading') {
           // console.log(info.file, info.fileList);

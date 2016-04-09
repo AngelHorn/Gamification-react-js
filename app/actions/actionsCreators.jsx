@@ -27,7 +27,7 @@ export function fetchItems(){
 export function fetchAddItem(item) {
   return (dispatch) => {
     return request
-    .post('constants.SERVERitems')
+    .post(constants.SERVER + 'items')
     .type('form')
     .send(item)
     .end(function(err, res){

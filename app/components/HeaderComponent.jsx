@@ -99,7 +99,7 @@ const HeaderComponent = React.createClass({
                         </Col>
                         <Col span="20">
                           <ProgressLine
-                            percent={parseInt( exp % 1000 / 100 )}
+                            percent={parseInt( exp % 1000 / 1000 * 100 )}
                             format="${percent}%"
                             status="active" />
                         </Col>

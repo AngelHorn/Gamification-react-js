@@ -30,7 +30,7 @@ const ShopContainer = React.createClass({
                           key="1">
                             <img
                               style={{width:"100%"}}
-                              src={ constants.URL + "assets/uploads/" + item.img } />
+                              src={ constants.SERVER + "assets/uploads/" + item.img } />
                           <Row type="flex" justify="center">
                             <ButtonGroup>
                               <Button type="ghost">
