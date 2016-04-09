@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import {connect} from 'react-redux';
 import * as actions from '../actions/actionsCreators.jsx';
 import ItemModalComponent from '../components/ItemModalComponent.jsx';
+import * as constants from '../actions/constants.jsx';
 
 import { Row, Col, Tabs, Icon, Button, Menu, DropdownButton, Collapse, Tag, Popconfirm, message  } from 'antd';
 const TabPane = Tabs.TabPane;
@@ -29,7 +30,7 @@ const ShopContainer = React.createClass({
                           key="1">
                             <img
                               style={{width:"100%"}}
-                              src={ "//gamification.0x00000000.me/assets/uploads/" + item.img } />
+                              src={ constants.URL + "assets/uploads/" + item.img } />
                           <Row type="flex" justify="center">
                             <ButtonGroup>
                               <Button type="ghost">

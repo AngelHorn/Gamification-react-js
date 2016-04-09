@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { Modal, Button, Icon, Upload } from 'antd';
 import { Form, Input, Col, Slider, InputNumber, Select, Datepicker, Timepicker} from 'antd';
 const FormItem = Form.Item;
+import * as constants from '../actions/constants.jsx';
 
 const ItemModalComponent = React.createClass({
   mixins: [Form.ValueMixin],
@@ -56,7 +57,7 @@ const ItemModalComponent = React.createClass({
   render() {
     const uploadProps = {
       name: "item_img",
-      action: 'http://gamification.0x00000000.me/upload',
+      action: constants.URL + 'upload',
       onChange: (info) => {
         if (info.file.status !== 'uploading') {
           // console.log(info.file, info.fileList);

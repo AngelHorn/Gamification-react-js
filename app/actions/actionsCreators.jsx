@@ -1,6 +1,7 @@
 import request from 'superagent';
 import { normalize, Schema, arrayOf } from 'normalizr';
 
+import * as constants from './constants.jsx';
 import * as actionTypes from './actionTypes.jsx';
 
 export function putCurrentNavType(){
@@ -13,7 +14,7 @@ export function fetchItems(){
   return dispatch => {
     //dispatch(requestPosts())
     return request
-    .get('http://gamification.0x00000000.me/items')
+    .get(constants.SERVER + 'items')
     .end(function(err, res){
       requestCodeHandler(res.body.code, () => {
         let items = res.body.data;
@@ -26,7 +27,7 @@ export function fetchItems(){
 export function fetchAddItem(item) {
   return (dispatch) => {
     return request
-    .post('http://gamification.0x00000000.me/items')
+    .post('constants.SERVERitems')
     .type('form')
     .send(item)
     .end(function(err, res){
@@ -42,7 +43,7 @@ export function fetchBagItems(){
   return dispatch => {
     //dispatch(requestPosts())
     return request
-    .get('http://gamification.0x00000000.me/bag_items')
+    .get(constants.SERVER + 'bag_items')
     .end(function(err, res){
       requestCodeHandler(res.body.code, () => {
         let bag_items = res.body.data;
@@ -55,7 +56,7 @@ export function fetchBagItems(){
 export function fetchAddBagItem(id) {
   return (dispatch) => {
     return request
-    .post('http://gamification.0x00000000.me/bag_items')
+    .post(constants.SERVER + 'bag_items')
     .type('form')
     .send({ id })
     .end(function(err, res){
@@ -77,7 +78,7 @@ export function addQuest(newQuest) {
 export function cancelCompleteQuest(id) {
   return (dispatch) => {
     return request
-    .put('http://gamification.0x00000000.me/quests/'+id)
+    .put(constants.SERVER + 'quests/'+id)
     .type('form')
     .send({ state: 0})
     .end(function(err, res){
@@ -92,7 +93,7 @@ export function cancelCompleteQuest(id) {
 export function completeQuest(id) {
   return (dispatch) => {
     return request
-    .put('http://gamification.0x00000000.me/quests/'+id)
+    .put(constants.SERVER + 'quests/'+id)
     .type('form')
     .send({ state: 1})
     .end(function(err, res){
@@ -121,7 +122,7 @@ export function fetchQuests() {
   return dispatch => {
     //dispatch(requestPosts())
     return request
-    .get('http://gamification.0x00000000.me/quests/tree')
+    .get(constants.SERVER + 'quests/tree')
     .end(function(err, res){
       requestCodeHandler(res.body.code, () => {
         // let shit = normalize(fuck, {data: arrayOf(new Schema('data'))})
@@ -136,7 +137,7 @@ export function fetchQuests() {
 export function fetchAddQuest(text, type, options = {}) {
   return (dispatch) => {
     return request
-    .post('http://gamification.0x00000000.me/quests')
+    .post(constants.SERVER + 'quests')
     .type('form')
     .send({ text, type, ...options })
     .end(function(err, res){
@@ -151,7 +152,7 @@ export function fetchAddQuest(text, type, options = {}) {
 export function fetchEditQuest(quest) {
   return (dispatch) => {
     return request
-    .put('http://gamification.0x00000000.me/quests/' + quest.id)
+    .put(constants.SERVER + 'quests/' + quest.id)
     .type('form')
     .send(quest)
     .end(function(err, res){
@@ -166,7 +167,7 @@ export function fetchEditQuest(quest) {
 export function fetchDeleteQuest(quest) {
   return (dispatch) => {
     return request
-    .del('http://gamification.0x00000000.me/quests/' + quest.id)
+    .del(constants.SERVER + 'quests/' + quest.id)
     .end(function(err, res){
       requestCodeHandler(res.body.code, () => {
         let newQuest = res.body.data;
@@ -180,7 +181,7 @@ export function fetchSchedules() {
   return dispatch => {
     //dispatch(requestPosts())
     return request
-    .get('http://gamification.0x00000000.me/schedules')
+    .get(constants.SERVER + 'schedules')
     .end(function(err, res){
         // let shit = normalize(fuck, {data: arrayOf(new Schema('data'))})
         // let data = normalize(fuck, arrayOf(new Schema('data')))
@@ -195,7 +196,7 @@ export function fetchSchedules() {
 export function fetchAddSchedule(formData) {
   return (dispatch) => {
     return request
-    .post('http://gamification.0x00000000.me/schedules')
+    .post(constants.SERVER + 'schedules')
     .type('form')
     .send(formData)
     .end(function(err, res){
@@ -213,7 +214,7 @@ export function fetchAddSchedule(formData) {
 export function fetchEditSchedule(formData) {
   return (dispatch) => {
     return request
-    .put('http://gamification.0x00000000.me/schedules/' + formData.id)
+    .put(constants.SERVER + 'schedules/' + formData.id)
     .type('form')
     .send(formData)
     .end(function(err, res){
