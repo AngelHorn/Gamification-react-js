@@ -278,7 +278,7 @@ const ScheduleContainer = React.createClass({
                         <DatePicker
                           value={this.state.formData.start_at || null}
                           disabledDate={function(current, value) {
-                            return current && current.getTime() < Date.now();
+                            return current && current.getTime() < Date.now() - 86400000;
                           }}
                           format="yyyy-MM-dd"
                           onChange={(value) => this.handleStartAtChange(value)} />

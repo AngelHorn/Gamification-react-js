@@ -12,7 +12,7 @@ const ScheduleModalComponent = React.createClass({
     let start_at;
     start_at = (new Date()).getFullYear() + "-"
     start_at += (new Date()).getMonth() + 1 + "-"
-    start_at += (new Date()).getDate() + 1
+    start_at += (new Date()).getDate()
     return {
         visible: false,
         loading: false,
@@ -200,7 +200,7 @@ const ScheduleModalComponent = React.createClass({
                       <DatePicker
                         value={this.state.formData.start_at || null}
                         disabledDate={function(current, value) {
-                          return current && current.getTime() < Date.now();
+                          return current && current.getTime() < Date.now() - 86400000;
                         }}
                         format="yyyy-MM-dd"
                         onChange={(value) => this.handleStartAtChange(value)} />
